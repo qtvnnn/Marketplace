@@ -1,19 +1,28 @@
 <template>
   <v-app>
+    <Header />
     <v-main>
       <Home />
     </v-main>
+
+    <v-footer app>
+      <Footer />
+    </v-footer>
   </v-app>
 </template>
 
 <script>
 import Home from "./components/Home.vue";
+import Footer from "./components/common/Footer.vue";
+import Header from "./components/common/Header.vue";
 
 export default {
   name: "App",
 
   components: {
     Home,
+    Header,
+    Footer
   },
 
   data: () => ({
@@ -21,3 +30,6 @@ export default {
   }),
 };
 </script>
+
+<style lang="scss" scoped>
+</style>
