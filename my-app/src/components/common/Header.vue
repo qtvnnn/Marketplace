@@ -21,9 +21,9 @@
       </v-responsive>
 
       <v-spacer></v-spacer>
-      
+
       <v-btn class="ml-4" text rounded>
-        <router-link style="text-decoration: none; color: inherit" to="/account"
+        <router-link style="text-decoration: none; color: inherit;" to="/account"
           >My Account</router-link
         >
       </v-btn>
