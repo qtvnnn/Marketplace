@@ -1,0 +1,5 @@
+<template>
+  <div class="about" style="padding-top: 50px; background: #82b1ff; height:100vh">
+    <h1>This is an user account page</h1>
+  </div>
+</template>

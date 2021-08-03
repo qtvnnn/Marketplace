@@ -2,7 +2,11 @@
   <v-app-bar app color="white" flat>
     <v-container class="py-0 fill-height">
       <v-avatar class="mr-2" color="grey darken-1" size="32"></v-avatar>
-      <span class="mr-12 brand-name">Marketplace</span>
+      <span class="mr-12 brand-name" style="margin-right: 40px">
+        <router-link style="text-decoration: none; color: inherit" to="/"
+          >Marketplace</router-link
+        >
+      </span>
 
       <v-responsive max-width="400">
         <v-text-field
@@ -17,23 +21,17 @@
       </v-responsive>
 
       <v-spacer></v-spacer>
-
-      <v-menu open-on-hover bottom offset-y>
-        <template v-slot:activator="{ on, attrs }">
-          <v-btn class="info" v-bind="attrs" v-on="on" rounded>
-            My account
-          </v-btn>
-        </template>
-
-        <v-list>          
-          <v-list-item>
-            <v-list-item-title class="menu-item-account">My Profile</v-list-item-title>
-          </v-list-item>
-          <v-list-item>
-            <v-list-item-title class="menu-item-account">My Collections</v-list-item-title>
-          </v-list-item>
-        </v-list>
-      </v-menu>
+      
+      <v-btn class="ml-4" text rounded>
+        <router-link style="text-decoration: none; color: inherit" to="/account"
+          >My Account</router-link
+        >
+      </v-btn>
+      <v-btn class="ml-4" text rounded>
+        <router-link style="text-decoration: none; color: inherit" to="/items"
+          >My Items</router-link
+        >
+      </v-btn>
 
       <v-btn class="ml-4" text rounded>Connect Wallet</v-btn>
     </v-container>
@@ -42,8 +40,7 @@
 
 <script>
 export default {
-  data: () => ({
-  }),
+  data: () => ({}),
 };
 </script>
 
@@ -52,7 +49,7 @@ export default {
   font-size: 20px;
   font-weight: 600;
 }
-.menu-item-account{
+.menu-item-account {
   cursor: pointer;
 }
 </style>
