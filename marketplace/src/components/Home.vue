@@ -13,8 +13,9 @@
 </template>
 
 <script>
-  export default {
-    data: () => ({
-    }),
-  }
+export default {
+  name: "1",
+
+  data: () => ({}),
+};
 </script>

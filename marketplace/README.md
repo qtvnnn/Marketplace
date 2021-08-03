@@ -1,4 +1,4 @@
-# my-app
+# marketplace
 
 ## Project setup
 ```

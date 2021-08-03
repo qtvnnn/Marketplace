@@ -22,16 +22,32 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn class="ml-4" text rounded>
-        <router-link style="text-decoration: none; color: inherit;" to="/account"
-          >My Account</router-link
-        >
-      </v-btn>
-      <v-btn class="ml-4" text rounded>
-        <router-link style="text-decoration: none; color: inherit" to="/items"
-          >My Items</router-link
-        >
-      </v-btn>
+      <v-menu open-on-hover bottom offset-y>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn v-bind="attrs" v-on="on" rounded> My account </v-btn>
+        </template>
+
+        <v-list>
+          <v-list-item>
+            <v-list-item-title class="menu-item-account">
+              <router-link
+                style="text-decoration: none; color: inherit"
+                to="/account"
+                >My Profile</router-link
+              >
+            </v-list-item-title>
+          </v-list-item>
+          <v-list-item>
+            <v-list-item-title class="menu-item-account">
+              <router-link
+                style="text-decoration: none; color: inherit"
+                to="/items"
+                >My Items</router-link
+              >
+            </v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
 
       <v-btn class="ml-4" text rounded>Connect Wallet</v-btn>
     </v-container>
