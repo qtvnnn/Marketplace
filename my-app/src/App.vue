@@ -5,9 +5,7 @@
       <Home />
     </v-main>
 
-    <v-footer app>
-      <Footer />
-    </v-footer>
+    <Footer />
   </v-app>
 </template>
 
@@ -22,7 +20,7 @@ export default {
   components: {
     Home,
     Header,
-    Footer
+    Footer,
   },
 
   data: () => ({
