@@ -2,7 +2,11 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Account from "../views/Account.vue";
-import Items from "../views/Items.vue";
+import Collections from "../views/Collections.vue";
+import CreateNFT from "../views/CreateNFT.vue";
+import CreateAuction from "../views/CreateAuction.vue";
+import NFTDetail from "../views/NFTDetail.vue";
+import AuctionDetail from "../views/AuctionDetail.vue";
 
 Vue.use(VueRouter);
 
@@ -18,9 +22,29 @@ const routes = [
     component: Account,
   },
   {
-    path: "/items",
-    name: "Items",
-    component: Items,
+    path: "/collections",
+    name: "Collections",
+    component: Collections,
+  },
+  {
+    path: "/create-NFT",
+    name: "CreateNFT",
+    component: CreateNFT,
+  },
+  {
+    path: "/create-auction",
+    name: "CreateAuction",
+    component: CreateAuction,
+  },
+  {
+    path: "/nft/1",
+    name: "NFTDetail",
+    component: NFTDetail,
+  },
+  {
+    path: "/auction/1",
+    name: "AuctionDetail",
+    component: AuctionDetail,
   },
   {
     path: "/about",

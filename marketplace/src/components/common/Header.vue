@@ -41,8 +41,8 @@
             <v-list-item-title class="menu-item-account">
               <router-link
                 style="text-decoration: none; color: inherit"
-                to="/items"
-                >My Items</router-link
+                to="/collections"
+                >My Collections</router-link
               >
             </v-list-item-title>
           </v-list-item>

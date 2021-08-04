@@ -3,8 +3,7 @@
     class="about"
     style="padding-top: 50px; background: #82b1ff; height: 100vh"
   >
-    <h1>This is an user my items page</h1>
-    <v-btn> Create a item </v-btn>
+    <h1>This is Create Auction page</h1>
   </div>
 </template>
 
