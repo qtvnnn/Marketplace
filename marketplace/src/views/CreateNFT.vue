@@ -82,7 +82,4 @@ export default {
 * {
   text-align: center;
 }
-.form-create {
-  // align-items: center;
-}
 </style>

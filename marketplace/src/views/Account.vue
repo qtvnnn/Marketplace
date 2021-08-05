@@ -2,12 +2,14 @@
   <div class="account">
     <Profile />
     <MyItems />
+    <MyAuctions />
   </div>
 </template>
 
 <script>
 import Profile from "../components/account/Profile.vue";
 import MyItems from "../components/account/MyItems.vue";
+import MyAuctions from "../components/account/MyAuctions.vue";
 
 export default {
   name: "Home",
@@ -15,6 +17,7 @@ export default {
   components: {
     Profile,
     MyItems,
+    MyAuctions,
   },
 };
 </script>
