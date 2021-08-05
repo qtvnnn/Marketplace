@@ -23,3 +23,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+* {
+  font-family: Avenir Next, Avenir, Avenir Next Local, sans-serif !important;
+}
+</style>

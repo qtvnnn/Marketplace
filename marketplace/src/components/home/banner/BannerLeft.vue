@@ -1,6 +1,6 @@
 <template>
   <v-col align="center" class="banner-left">
-    <p class="title-banner">Chào mừng bạn đã đến với <br />chợ đồ cũ BDA !!!</p>
+    <p class="title-banner">Chào mừng bạn đã đến với chợ đồ cũ BDA !!!</p>
     <p class="mb-6" style="font-size: 24px">
       thị trường NFT đầu tiên và lớp nhất Việt Nam
     </p>

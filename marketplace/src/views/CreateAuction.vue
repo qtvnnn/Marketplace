@@ -3,7 +3,7 @@
     class="create-auction"
     style="padding-top: 50px; background: #82b1ff; height: 100vh"
   >
-    <h1>This is Create Auction page</h1>
+    <h1>Tạo sản phẩm đấu giá</h1>
   </div>
 </template>
 
