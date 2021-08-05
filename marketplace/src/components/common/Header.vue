@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar app color="white" flat>
+  <v-app-bar class="header" app color="white" flat>
     <v-container class="py-0 fill-height">
       <v-avatar class="mr-2" color="grey darken-1" size="32"></v-avatar>
       <span class="mr-12 brand-name" style="margin-right: 40px">
@@ -61,6 +61,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.header {
+  box-shadow: rgb(4 17 29 / 25%) 0px 0px 8px 0px !important;
+}
 .brand-name {
   font-size: 20px;
   font-weight: 600;
