@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire" style="background: #82b1ff">
+  <v-app id="inspire">
     <Banner />
     <v-main>
       <NFTList />
