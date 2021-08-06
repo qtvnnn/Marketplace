@@ -27,7 +27,7 @@ const routes = [
     component: Collections,
   },
   {
-    path: "/create-NFT",
+    path: "/create-nft",
     name: "CreateNFT",
     component: CreateNFT,
   },

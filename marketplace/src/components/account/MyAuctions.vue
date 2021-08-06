@@ -5,7 +5,7 @@
       <v-col>
         <router-link
           style="text-decoration: none; color: inherit"
-          to="/create-NFT"
+          to="/create-auction"
           ><v-btn color="error" outlined height="50"
             >Tạo đấu giá</v-btn
           ></router-link

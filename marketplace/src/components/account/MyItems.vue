@@ -5,7 +5,7 @@
       <v-col>
         <router-link
           style="text-decoration: none; color: inherit"
-          to="/create-NFT"
+          to="/create-nft"
           ><v-btn color="error" outlined height="50"
             >Tạo sản phẩm</v-btn
           ></router-link
@@ -24,10 +24,7 @@
     </v-row>
     <v-row>
       <v-col v-for="n in 6" :key="n" cols="4">
-        <router-link
-          style="text-decoration: none; color: inherit"
-          to="/auction/1"
-        >
+        <router-link style="text-decoration: none; color: inherit" to="/nft/1">
           <v-card height="407" align="center">
             <v-img src="https://picsum.photos/500/400?random"></v-img>
             <p>Tên sản phẩm</p>

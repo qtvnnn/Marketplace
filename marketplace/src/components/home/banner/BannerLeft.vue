@@ -5,7 +5,7 @@
       thị trường NFT đầu tiên và lớp nhất Việt Nam
     </p>
 
-    <router-link style="text-decoration: none; color: inherit" to="/create-NFT">
+    <router-link style="text-decoration: none; color: inherit" to="/create-nft">
       <v-btn class="mr-2" color="primary" height="50"
         >Tạo sản phẩm
       </v-btn></router-link

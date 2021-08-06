@@ -1,6 +1,6 @@
 <template>
   <div class="nft-detail" style="padding-top: 50px">
-    <h1 class="mb-12">Chi tiết sản phẩm</h1>
+    <h1 class="mb-12" style="text-align: center">Chi tiết sản phẩm</h1>
     <v-container>
       <v-row>
         <v-col cols="12" md="5">
@@ -18,7 +18,18 @@
             The column was decorated in high relief with scenes from Greek
             mythology.
           </p>
-          <p>Price: <span>$10</span></p>
+          <p>
+            Contract Address:
+            <span style="color: #1868b7"
+              >0x88B48F654c30e99bc2e4A1559b4Dcf1aD93FA656</span
+            >
+          </p>
+          <p>
+            Token ID:
+            <span style="color: #707a83">27267367970176516212915745...</span>
+          </p>
+          <p>Blockchain: <span style="color: #707a83"> Rinkeby</span></p>
+          <p>Price: <span class="price">$10</span></p>
           <v-btn>Make Offer</v-btn>
         </v-col>
       </v-row>
@@ -43,5 +54,9 @@
 }
 .description {
   font-size: 14px;
+}
+.price {
+  font-size: 17px;
+  color: #3291e9;
 }
 </style>
