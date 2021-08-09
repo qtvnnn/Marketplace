@@ -24,7 +24,6 @@ export default {
 
 <style lang="scss" scoped>
 .account {
-  height: 100vh;
   padding-top: 50px;
 }
 </style>

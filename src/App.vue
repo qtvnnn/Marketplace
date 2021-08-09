@@ -4,9 +4,7 @@
     <v-main>
       <router-view />
     </v-main>
-    <v-footer app>
-      <Footer />
-    </v-footer>
+    <Footer />
   </v-app>
 </template>
 
