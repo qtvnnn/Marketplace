@@ -24,7 +24,9 @@
 
       <v-menu open-on-hover bottom offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" rounded> My account </v-btn>
+          <v-btn v-bind="attrs" v-on="on" elevation="3" rounded>
+            My account
+          </v-btn>
         </template>
 
         <v-list>
@@ -49,7 +51,7 @@
         </v-list>
       </v-menu>
 
-      <v-btn class="ml-4" text rounded>Connect Wallet</v-btn>
+      <v-btn class="ml-4" elevation="3" text rounded>Connect Wallet</v-btn>
     </v-container>
   </v-app-bar>
 </template>

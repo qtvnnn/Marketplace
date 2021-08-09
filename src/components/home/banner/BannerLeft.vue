@@ -6,7 +6,7 @@
     </p>
 
     <router-link style="text-decoration: none; color: inherit" to="/create-nft">
-      <v-btn class="mr-2" color="primary" height="50"
+      <v-btn class="mr-2" color="primary" height="50" elevation="5"
         >Tạo sản phẩm
       </v-btn></router-link
     >
@@ -15,7 +15,7 @@
       style="text-decoration: none; color: inherit"
       to="/create-auction"
     >
-      <v-btn outlined color="indigo" height="50"
+      <v-btn outlined color="indigo" height="50" elevation="5"
         >Tạo đấu giá
       </v-btn></router-link
     >
