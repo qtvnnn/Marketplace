@@ -49,15 +49,33 @@
         </v-list>
       </v-menu>
 
-      <v-btn class="ml-4" text rounded>Connect Wallet</v-btn>
+      <v-btn class="ml-4" text v-on:click="connectWeb3" rounded>Connect Wallet</v-btn>
     </v-container>
   </v-app-bar>
 </template>
 
 <script>
+import getWeb3 from '../../getWeb3';
+import getContract from '../../getContract';
 export default {
   data: () => ({}),
-};
+  methods:{
+   connectWeb3(){
+   getWeb3().then((result) => {
+      result.eth.getAccounts().then(res=>{
+           console.log(res[0]);
+           this.$store.commit('SET_ACCOUNT',res[0]);
+      });
+      const contract = getContract(result);
+
+      console.log(contract);
+     
+      this.$store.commit('SET_CONTRACT',contract);
+    })
+    }
+
+  }
+}
 </script>
 
 <style lang="scss" scoped>

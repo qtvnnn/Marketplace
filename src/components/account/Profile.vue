@@ -8,9 +8,7 @@
         <h2 class="mb-4 username">User Name</h2>
         <h3 class="mb-12">
           Tài khoản của bạn:
-          <span class="address"
-            >0x6976e231a2B80052A4d33875eFD386B980a486fC
-          </span>
+          <span class="address">{{ account }} </span>
         </h3>
       </v-col>
     </v-row>
@@ -19,10 +17,21 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 export default {
   name: "Profile",
+  data() {
+    return {
+      test: "ádấd",
+    };
+  },
+  components: {
 
-  components: {},
+  },
+
+  computed: {
+    ...mapGetters({ account: "getAccount" }),
+  },
 };
 </script>
 
