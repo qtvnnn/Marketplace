@@ -6,7 +6,7 @@
         <router-link
           style="text-decoration: none; color: inherit"
           to="/create-nft"
-          ><v-btn color="error" outlined height="50"
+          ><v-btn color="error" outlined height="50" elevation="5"
             >Tạo sản phẩm</v-btn
           ></router-link
         ></v-col

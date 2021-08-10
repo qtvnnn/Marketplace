@@ -25,9 +25,7 @@ export default {
       test: "ádấd",
     };
   },
-  components: {
-
-  },
+  components: {},
 
   computed: {
     ...mapGetters({ account: "getAccount" }),

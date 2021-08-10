@@ -48,7 +48,7 @@
 </template>
 
 <script>
-import {mapGetters} from 'vuex';
+import { mapGetters } from "vuex";
 export default {
   name: "CreateNFT",
   components: {},
@@ -65,12 +65,20 @@ export default {
       (v) => v.length <= 15 || "Name must be less than 15 characters",
     ],
   }),
-  methods:{
-    createNFT1(){
-      this.contractNGIN.methods.safeMint(this.account,"0x7465737400000000000000000000000000000000000000000000000000000000").send({from: this.account}).then(res=>{{
-        console.log(res);
-      }});
-    }
+  methods: {
+    createNFT1() {
+      this.contractNGIN.methods
+        .safeMint(
+          this.account,
+          "0x7465737400000000000000000000000000000000000000000000000000000000"
+        )
+        .send({ from: this.account })
+        .then((res) => {
+          {
+            console.log(res);
+          }
+        });
+    },
   },
   computed: {
     ...mapGetters({ contractNGIN: "getNghin" }),

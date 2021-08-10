@@ -6,8 +6,8 @@ Vue.use(Vuex);
 export default new Vuex.Store({
   state: {
     contract: {},
-    quan:{},
-    ngin:{},
+    quan: {},
+    ngin: {},
     account: "",
   },
   getters: {
@@ -20,7 +20,7 @@ export default new Vuex.Store({
     SET_CONTRACT: (state, contract) => {
       state.contract = contract;
     },
-    SET_QUAN: (state,quan ) => {
+    SET_QUAN: (state, quan) => {
       state.quan = quan;
     },
     SET_NGIN: (state, ngin) => {

@@ -24,7 +24,7 @@
 
       <v-menu open-on-hover bottom offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" rounded> My account </v-btn>
+          <v-btn v-bind="attrs" v-on="on"  rounded> My account </v-btn>
         </template>
 
         <v-list>
@@ -67,8 +67,6 @@ export default {
            this.$store.commit('SET_ACCOUNT',res[0]);
       });
       const contract = getContract(result);
-
-      console.log(contract);
      
       this.$store.commit('SET_CONTRACT',contract);
     })
