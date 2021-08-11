@@ -31,5 +31,9 @@ export default new Vuex.Store({
       state.account = account;
     },
   },
-  actions: {},
+  actions: {
+    changeCurrentAddress({ commit }, address) {
+      commit("SET_ACCOUNT", address);
+    },
+  },
 });

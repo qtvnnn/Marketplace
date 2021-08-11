@@ -3,7 +3,11 @@
     <span class="title-nft-list">Chợ mua bán sản phẩm</span>
     <v-row class="mt-6 mb-12">
       <v-col v-for="n in 8" :key="n" cols="3">
-        <router-link style="text-decoration: none; color: inherit" to="/nft/1">
+        <router-link
+          style="text-decoration: none; color: inherit"
+          to="/nft/1"
+          target="_blank"
+        >
           <v-card height="400" align="center">
             <div class="img-contain" style="height: 320px">
               <img

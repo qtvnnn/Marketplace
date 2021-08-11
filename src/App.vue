@@ -30,25 +30,31 @@ export default {
   methods: {
     checkConnect() {
       let web31;
-      if (window.web3.currentProvider) {
-        web31 = new Web3(window.web3.currentProvider);
-        web31.eth.getAccounts().then((res) => {
-          console.log(res[0]);
-          this.$store.commit("SET_ACCOUNT", res[0]);
-          this.$store.commit("SET_ACCOUNT", res[0]);
-        });
-        const contract = getContract(web31);
-        this.$store.commit("SET_CONTRACT", contract);
-        const quan = getContractQuan(web31);
-        this.$store.commit("SET_QUAN", quan);
-        const ngin = getContractNgin(web31);
-        this.$store.commit("SET_NGIN", ngin);
+      if (window.ethereum && window.ethereum.isMetaMask) {
+        if (window.web3.currentProvider) {
+          web31 = new Web3(window.web3.currentProvider);
+          web31.eth.getAccounts().then((res) => {
+            console.log(res[0]);
+            this.$store.commit("SET_ACCOUNT", res[0]);
+            this.$store.commit("SET_ACCOUNT", res[0]);
+          });
+          const contract = getContract(web31);
+          this.$store.commit("SET_CONTRACT", contract);
+          const quan = getContractQuan(web31);
+          this.$store.commit("SET_QUAN", quan);
+          const ngin = getContractNgin(web31);
+          this.$store.commit("SET_NGIN", ngin);
 
-        console.log(contract);
-        console.log(quan);
-        console.log(ngin);
+          console.log(contract);
+          console.log(quan);
+          console.log(ngin);
+        } else {
+          this.$store.commit("SET_ACCOUNT", "");
+        }
       } else {
-        this.$store.commit("SET_ACCOUNT", "");
+        alert(
+          "You need to have the Metamask extension first. Please set up or login to your Metamask account and connect it to continue."
+        );
       }
     },
   },

@@ -1,13 +1,13 @@
 <template>
   <v-row class="form-create">
     <v-col class="pt-8" cols="12" md="3">
-      <v-img
-        class="banner-img"
-        height="240"
-        width="240"
-        src="https://lh3.googleusercontent.com/06DG0Jq_0OUOp0cqfaQh2KyywUMNeeQBrrim1JtNcs6jf0t1e6fuEmO8EOA-eHiR7sHdgqvjjh7wnxgMzeoIIea6lnXTmUx6fEn7FQ=s550"
-      ></v-img>
-      <v-file-input show-size small-chips truncate-length="20"></v-file-input
+      <v-img class="banner-img" height="240" width="240" :src="imgFile"></v-img>
+      <v-file-input
+        show-size
+        small-chips
+        truncate-length="20"
+        @change="selectFile"
+      ></v-file-input
     ></v-col>
     <v-col cols="12" md="9">
       <v-container>
@@ -64,6 +64,9 @@ export default {
       (v) => !!v || "Price is required",
       (v) => v.length <= 15 || "Name must be less than 15 characters",
     ],
+    currentFile: "",
+    imgFile:
+      "https://lh3.googleusercontent.com/06DG0Jq_0OUOp0cqfaQh2KyywUMNeeQBrrim1JtNcs6jf0t1e6fuEmO8EOA-eHiR7sHdgqvjjh7wnxgMzeoIIea6lnXTmUx6fEn7FQ=s550",
   }),
   methods: {
     createNFT1() {
@@ -78,6 +81,9 @@ export default {
             console.log(res);
           }
         });
+    },
+    selectFile(file) {
+      this.currentFile = file;
     },
   },
   computed: {

@@ -34,6 +34,7 @@
         <router-link
           style="text-decoration: none; color: inherit"
           to="/auction/1"
+          target="_blank"
         >
           <v-card height="400" align="center">
             <div class="img-contain" style="height: 320px">

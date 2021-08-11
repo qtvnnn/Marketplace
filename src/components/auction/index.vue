@@ -41,7 +41,7 @@
               <li>Mức giá gần nhất:</li>
               <li>Trạng thái phiên:</li>
               <li>Giá khởi điểm:</li>
-              <li>Bước nhảy:</li>
+              <li>Bước giá:</li>
             </ul>
             <h3 class="mt-4 mb-2">Tham gia đấu giá</h3>
             <v-text-field solo suffix="NGINNFT"></v-text-field>

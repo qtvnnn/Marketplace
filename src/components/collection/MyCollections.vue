@@ -3,7 +3,8 @@
     <v-col v-for="n in 6" :key="n" cols="4">
       <router-link
         style="text-decoration: none; color: inherit"
-        to="/auction/1"
+        to="/nft/1"
+        target="_blank"
       >
         <v-card height="400" align="center">
           <div class="img-contain" style="height: 320px">

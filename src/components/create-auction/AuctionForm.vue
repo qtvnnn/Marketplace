@@ -48,7 +48,7 @@
               v-model="price"
               :rules="priceRules"
               :counter="15"
-              label="Bước nhảy"
+              label="Bước giá"
               required
               type="number"
             ></v-text-field>
