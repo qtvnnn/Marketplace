@@ -20,11 +20,9 @@
 import { mapGetters } from "vuex";
 export default {
   name: "Profile",
-  data() {
-    return {
-      test: "ádấd",
-    };
-  },
+  data: () => ({
+    
+  }),
   components: {},
 
   computed: {
