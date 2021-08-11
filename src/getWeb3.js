@@ -29,19 +29,24 @@ export default async () => {
           try {
             web3 = new Web3(window.ethereum);
             await window.ethereum.enable();
+            alert("Connect success !");
+            return web3;
           } catch (error) {
             alert("Please, allow Metamask access to your account !");
+            return null;
           }
         } else if (
           typeof window !== "undefined" &&
           typeof window.web3 != "undefined"
         ) {
           web3 = new Web3(window.web3.currentProvider);
+          alert("Connect success !");
+          return web3;
         } else {
           alert("Please, install Metamask !");
+          return null;
         }
-        alert("Connect success !");
-        return web3;
+       
       }
       case "42": {
         alert("Please, connect network rinkeby !");

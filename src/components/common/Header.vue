@@ -78,12 +78,18 @@ export default {
     connectWeb3() {
       if (window.ethereum) {
         getWeb3().then((result) => {
+          if(result){
           result.eth.getAccounts().then((res) => {
             console.log(res[0]);
             this.$store.commit("SET_ACCOUNT", res[0]);
           });
           const contract = getContract(result);
           this.$store.commit("SET_CONTRACT", contract);
+          }else{
+            alert(
+          "You need to have the Metamask extension first. Please set up or login to your Metamask account and connect it to continue."
+        );
+          }
         });
       } else {
         alert(
