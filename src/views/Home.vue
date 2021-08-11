@@ -15,7 +15,6 @@ import AuctionList from "../components/home/auction/AuctionList.vue";
 
 export default {
   name: "Home",
-
   components: {
     Banner,
     NFTList,

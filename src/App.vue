@@ -15,15 +15,18 @@ import Web3 from "web3";
 import getContract from "./getContract";
 import getContractQuan from "./getContractQuan";
 import getContractNgin from "./getContractNGIN";
+import { mapGetters } from "vuex";
 export default {
   name: "App",
   components: {
     Footer,
     Header,
   },
-  data: () => ({
-    //
-  }),
+  data: () => ({}),
+  computed: {
+    ...mapGetters({ account: "getAccount" }),
+    ...mapGetters({ contract: "getContract" }),
+  },
   mounted() {
     this.checkConnect();
   },
@@ -34,8 +37,6 @@ export default {
         if (window.web3.currentProvider) {
           web31 = new Web3(window.web3.currentProvider);
           web31.eth.getAccounts().then((res) => {
-            console.log(res[0]);
-            this.$store.commit("SET_ACCOUNT", res[0]);
             this.$store.commit("SET_ACCOUNT", res[0]);
           });
           const contract = getContract(web31);
@@ -44,17 +45,12 @@ export default {
           this.$store.commit("SET_QUAN", quan);
           const ngin = getContractNgin(web31);
           this.$store.commit("SET_NGIN", ngin);
-
           console.log(contract);
-          console.log(quan);
-          console.log(ngin);
         } else {
-          this.$store.commit("SET_ACCOUNT", "");
+          alert(
+            "You need to have the Metamask extension first. Please set up or login to your Metamask account and connect it to continue."
+          );
         }
-      } else {
-        alert(
-          "You need to have the Metamask extension first. Please set up or login to your Metamask account and connect it to continue."
-        );
       }
     },
   },

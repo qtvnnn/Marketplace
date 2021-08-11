@@ -49,6 +49,7 @@
 
 <script>
 import { mapGetters } from "vuex";
+import * as ListFunction from '../../ListFunction';
 export default {
   name: "CreateNFT",
   components: {},
@@ -70,17 +71,19 @@ export default {
   }),
   methods: {
     createNFT1() {
-      this.contractNGIN.methods
-        .safeMint(
-          this.account,
-          "0x7465737400000000000000000000000000000000000000000000000000000000"
-        )
-        .send({ from: this.account })
-        .then((res) => {
-          {
-            console.log(res);
-          }
-        });
+      // this.contractNGIN.methods
+      //   .safeMint(
+      //     this.account,
+      //     "0x7465737400000000000000000000000000000000000000000000000000000000"
+      //   )
+      //   .send({ from: this.account })
+      //   .then((res) => {
+      //     {
+      //       console.log(res);
+      //       console.log(res.events.Transfer.returnValues.tokenId);
+      //     }
+      //   });
+      ListFunction.LayDanhSachDauGia(this.contract);
     },
     selectFile(file) {
       this.currentFile = file;
@@ -88,6 +91,7 @@ export default {
   },
   computed: {
     ...mapGetters({ contractNGIN: "getNghin" }),
+    ...mapGetters({ contract: "getContract" }),
     ...mapGetters({ account: "getAccount" }),
   },
 };
