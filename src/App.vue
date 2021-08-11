@@ -33,7 +33,6 @@ export default {
   methods: {
     checkConnect() {
       let web31;
-      if (window.ethereum && window.ethereum.isMetaMask) {
         if (window.web3.currentProvider) {
           web31 = new Web3(window.web3.currentProvider);
           web31.eth.getAccounts().then((res) => {
@@ -45,13 +44,7 @@ export default {
           this.$store.commit("SET_QUAN", quan);
           const ngin = getContractNgin(web31);
           this.$store.commit("SET_NGIN", ngin);
-          console.log(contract);
-        } else {
-          alert(
-            "You need to have the Metamask extension first. Please set up or login to your Metamask account and connect it to continue."
-          );
         }
-      }
     },
   },
 };

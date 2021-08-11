@@ -27,7 +27,6 @@ export default new Vuex.Store({
       state.ngin = ngin;
     },
     SET_ACCOUNT: (state, account) => {
-      console.log(account);
       state.account = account;
     },
   },
