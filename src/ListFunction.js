@@ -14,7 +14,8 @@ export const TaoNFT = (contract,nft,account)=>{
 
         API_CALLER('createNewNFT','POST',nft).then(res=>{
             const {data} = res;
-            setSafeMint(contract,account,account,data).then(res=>{
+            console.log(data.tokenId);
+            setSafeMint(contract,account,account,data.tokenId).then(res=>{
                 console.log(res.events.Transfer.returnValues.tokenId);
             });
         }).catch(err=>{
@@ -73,7 +74,7 @@ export const LayDanhSachDauGia = (contract)=>{
     return LayDanhSachTatCaPhienDauGia(contract);
 }
 
-export const LayDanhSachMuaBanSoHuu = (contract,adOwner)=>{
+export const LayDanhSachMuaBanSoHuu1 = (contract,adOwner)=>{
     return LayDanhSachMuaBanSoHuu(contract,adOwner);
 }
 

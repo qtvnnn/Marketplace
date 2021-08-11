@@ -14,7 +14,7 @@
         <v-row>
           <v-col>
             <v-text-field
-              v-model="name"
+              v-model="nft.name"
               :rules="nameRules"
               :counter="30"
               label="Tên sản phẩm"
@@ -34,7 +34,11 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-textarea outlined label="Mô tả sản phẩm"></v-textarea>
+            <v-textarea
+              outlined
+              label="Mô tả sản phẩm"
+              v-model="nft.desc"
+            ></v-textarea>
           </v-col>
         </v-row>
         <v-row>
@@ -49,14 +53,23 @@
 
 <script>
 import { mapGetters } from "vuex";
-import * as ListFunction from '../../ListFunction';
+import * as ListFunction from "../../ListFunction";
 export default {
   name: "CreateNFT",
   components: {},
   data: () => ({
     valid: false,
-    name: "",
     price: "",
+    nft: {
+      fileNFT: "",
+      title: "tiêu đề",
+      name: "",
+      desc: "",
+      size: "5286",
+      type: "image/jpg",
+      lastModified: "1627383738225",
+      lastModifiedDate: "adfsdf"
+    },
     nameRules: [
       (v) => !!v || "Name is required",
       (v) => v.length <= 30 || "Name must be less than 30 characters",
@@ -65,28 +78,27 @@ export default {
       (v) => !!v || "Price is required",
       (v) => v.length <= 15 || "Name must be less than 15 characters",
     ],
-    currentFile: "",
     imgFile:
       "https://lh3.googleusercontent.com/06DG0Jq_0OUOp0cqfaQh2KyywUMNeeQBrrim1JtNcs6jf0t1e6fuEmO8EOA-eHiR7sHdgqvjjh7wnxgMzeoIIea6lnXTmUx6fEn7FQ=s550",
   }),
   methods: {
     createNFT1() {
-      // this.contractNGIN.methods
-      //   .safeMint(
-      //     this.account,
-      //     "0x7465737400000000000000000000000000000000000000000000000000000000"
-      //   )
-      //   .send({ from: this.account })
-      //   .then((res) => {
-      //     {
-      //       console.log(res);
-      //       console.log(res.events.Transfer.returnValues.tokenId);
-      //     }
-      //   });
-      ListFunction.LayDanhSachDauGia(this.contract);
+      const formData = new FormData();
+      formData.append('fileNFT', this.nft.fileNFT)
+      formData.append('title', this.nft.title)
+      formData.append('name', this.nft.name)
+      formData.append('desc', this.nft.desc)
+      formData.append('size', this.nft.size)
+      formData.append('type', this.nft.type)
+      formData.append('lastModified', this.nft.lastModified)
+      formData.append('lastModifiedDate', this.nft.lastModifiedDate)
+      console.log(this.contract);
+      ListFunction.TaoNFT(this.contractNGIN, formData, this.account);
+      console.log(formData);
     },
     selectFile(file) {
-      this.currentFile = file;
+
+      this.nft.fileNFT = file;
     },
   },
   computed: {
