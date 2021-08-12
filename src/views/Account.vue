@@ -16,7 +16,7 @@ import { mapGetters } from "vuex";
 import Profile from "../components/account/Profile.vue";
 import MyItems from "../components/account/MyItems.vue";
 import MyAuctions from "../components/account/MyAuctions.vue";
-import ConnectWallet from "../components/account/ConnectWallet.vue";
+import ConnectWallet from "../components/common/ConnectWallet.vue";
 
 export default {
   name: "Home",

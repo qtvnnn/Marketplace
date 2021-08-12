@@ -3,7 +3,7 @@
     <v-col v-for="n in 6" :key="n" cols="4">
       <router-link
         style="text-decoration: none; color: inherit"
-        to="/nft/1"
+        to="/item-collection/1"
         target="_blank"
       >
         <v-card height="400" align="center">
@@ -16,11 +16,11 @@
                 ><span class="item-name">Tên sản phẩm</span><br />
                 <span class="item-owner">Owner</span></v-col
               >
-              <v-col class="text-right"
-                ><span class="txt-price">Price</span><br /><span class="price"
-                  >$10</span
-                ></v-col
-              >
+              <v-col class="text-right">
+                <span class="txt-price">Price</span><br /><span class="price">
+                  $10
+                </span>
+              </v-col>
             </v-row>
           </v-container>
         </v-card>

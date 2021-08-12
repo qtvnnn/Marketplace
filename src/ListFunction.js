@@ -18,6 +18,7 @@ export const TaoNFT = (contract,nft,account)=>{
             setSafeMint(contract,account,account,data.tokenId).then(res=>{
                 console.log(res.events.Transfer.returnValues.tokenId);
             });
+
         }).catch(err=>{
             window.alert('Create nft false !!!');
             console.log(err);

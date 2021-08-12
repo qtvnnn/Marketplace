@@ -1,18 +1,18 @@
 <template>
   <div class="nft-detail" style="padding-top: 50px">
-    <h1 class="mb-12" style="text-align: center">Chi tiết sản phẩm</h1>
-    <NFT />
+    <h1 class="mb-12" style="text-align: center">Item Detail</h1>
+    <Detail />
   </div>
 </template>
 
 <script>
-import NFT from "../components/nft/index.vue";
+import Detail from "../components/collection/Detail.vue";
 
 export default {
-  name: "NFTDetail",
+  name: "ItemCollectionDetail",
 
   components: {
-    NFT,
+    Detail,
   },
 };
 </script>
