@@ -15,7 +15,7 @@
             <p class="owned">
               Owned by <span class="owner-name">Username</span>
             </p>
-            <p>Mô tả sản phẩm:</p>
+            <p>Description:</p>
             <p class="description">
               The column was decorated in high relief with scenes from Greek
               mythology.
@@ -35,17 +35,17 @@
             <v-btn>Make Offer</v-btn></v-col
           >
           <v-col>
-            <h2 class="mt-15">Thể lệ đấu giá</h2>
+            <h2 class="mt-15">Auction Rules</h2>
             <ul>
-              <li>Thời gian:</li>
-              <li>Mức giá gần nhất:</li>
-              <li>Trạng thái phiên:</li>
-              <li>Giá khởi điểm:</li>
-              <li>Bước giá:</li>
+              <li>Time:</li>
+              <li>Recently Price:</li>
+              <li>Status:</li>
+              <li>Starting Price:</li>
+              <li>Step Price:</li>
             </ul>
-            <h3 class="mt-4 mb-2">Tham gia đấu giá</h3>
+            <h3 class="mt-4 mb-2">Join the auction</h3>
             <v-text-field solo suffix="NGINNFT"></v-text-field>
-            <v-btn class="btn-auction">Đấu giá</v-btn>
+            <v-btn class="btn-auction">Auction</v-btn>
           </v-col>
         </v-row>
       </v-col>

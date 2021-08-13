@@ -13,7 +13,7 @@
           <v-container>
             <v-row>
               <v-col class="text-left"
-                ><span class="item-name">Tên sản phẩm</span><br />
+                ><span class="item-name">Itemname</span><br />
                 <span class="item-owner">Owner</span></v-col
               >
               <v-col class="text-right">
@@ -26,6 +26,11 @@
         </v-card>
       </router-link>
     </v-col>
+    <v-col>
+      <div class="text-center mt-8 mb-16">
+        <v-pagination v-model="page" :length="6"></v-pagination>
+      </div>
+    </v-col>
   </v-row>
 </template>
 
@@ -33,7 +38,7 @@
 export default {
   name: "MyItems",
   components: {},
-  data: () => ({}),
+  data: () => ({ page: 1 }),
 };
 </script>
 

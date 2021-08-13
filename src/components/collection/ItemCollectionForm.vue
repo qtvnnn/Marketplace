@@ -24,7 +24,7 @@
                 v-model="nft.title"
                 :rules="nameRules"
                 :counter="30"
-                label="Tên sản phẩm"
+                label="Name"
                 required
               ></v-text-field>
             </v-col>
@@ -33,7 +33,7 @@
             <v-col>
               <v-textarea
                 outlined
-                label="Mô tả sản phẩm"
+                label="Description"
                 :rules="desRules"
                 v-model="nft.desc"
                 required
@@ -42,7 +42,7 @@
           </v-row>
           <v-row>
             <v-col>
-              <v-btn @click="createNFT1">Tạo sản phẩm</v-btn>
+              <v-btn @click="createNFT1">Create</v-btn>
             </v-col>
           </v-row>
         </v-container>

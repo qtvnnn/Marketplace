@@ -1,6 +1,6 @@
 <template>
   <div class="auction-detail" style="padding-top: 50px">
-    <h1 class="mb-12" style="text-align: center">Chi tiết sản phẩm đấu giá</h1>
+    <h1 class="mb-12" style="text-align: center">Item details</h1>
     <Auction />
   </div>
 </template>

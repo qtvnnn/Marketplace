@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <h1>Tạo sản phẩm đấu giá</h1>
+          <h1>Create a Auction</h1>
         </v-col>
       </v-row>
       <AuctionForm />

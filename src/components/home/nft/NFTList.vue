@@ -1,7 +1,7 @@
 <template>
   <v-container>
-    <span class="title-nft-list">Chợ mua bán sản phẩm</span>
-    <v-row class="mt-6 mb-12">
+    <span class="title-nft-list">Explore the NFT marketplace</span>
+    <v-row class="mt-6">
       <v-col v-for="n in 8" :key="n" cols="3">
         <router-link
           style="text-decoration: none; color: inherit"
@@ -18,7 +18,7 @@
             <v-container>
               <v-row>
                 <v-col class="text-left"
-                  ><span class="item-name">Tên sản phẩm</span><br />
+                  ><span class="item-name">Itemname</span><br />
                   <span class="item-owner">Owner</span></v-col
                 >
                 <v-col class="text-right"
@@ -32,13 +32,20 @@
         </router-link>
       </v-col>
     </v-row>
+    <div class="text-center mt-8 mb-16">
+      <v-pagination v-model="page" :length="6"></v-pagination>
+    </div>
   </v-container>
 </template>
 
 <script>
 export default {
   name: "NFTList",
-
+  data() {
+    return {
+      page: 1,
+    };
+  },
   components: {},
 };
 </script>

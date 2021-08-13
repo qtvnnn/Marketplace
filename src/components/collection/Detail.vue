@@ -11,7 +11,7 @@
       <v-col class="nft-detail-right" cols="12" md="7">
         <p class="item-name">Itemname</p>
         <p class="owned">Owned by <span class="owner-name">Username</span></p>
-        <p>Mô tả sản phẩm:</p>
+        <p>Description:</p>
         <p class="description">
           The column was decorated in high relief with scenes from Greek
           mythology.
@@ -81,22 +81,26 @@
                   </v-row>
                   <v-row>
                     <v-col>
-                      <v-datetime-picker
-                        label="Start Time:"
+                      <span class="title-time">Start Time:</span><br />
+                      <date-picker
                         v-model="timeStart"
-                        :rules="startTimeRules"
-                        required
-                      >
-                      </v-datetime-picker>
+                        type="datetime"
+                        value-type="timestamp"
+                        @blur="blurTimeStart"
+                      ></date-picker
+                      ><br />
+                      <span class="error-msg">{{ timeStartValid }}</span>
                     </v-col>
                     <v-col>
-                      <v-datetime-picker
-                        label="End Time:"
+                      <span class="title-time">End Time:</span><br />
+                      <date-picker
                         v-model="timeEnd"
-                        :rules="endTimeRules"
-                        required
-                      >
-                      </v-datetime-picker>
+                        type="datetime"
+                        value-type="timestamp"
+                        @blur="blurTimeEnd"
+                      ></date-picker
+                      ><br />
+                      <span class="error-msg">{{ timeEndValid }}</span>
                     </v-col>
                   </v-row>
 
@@ -117,11 +121,11 @@
 </template>
 
 <script>
-// import DatePicker from "vue2-datepicker";
+import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 export default {
   name: "NFT",
-  components: {},
+  components: { DatePicker },
   data: () => ({
     validSell: true,
     validAuction: true,
@@ -130,12 +134,12 @@ export default {
     stepPrice: "",
     timeStart: "",
     timeEnd: "",
+    timeStartValid: "",
+    timeEndValid: "",
     priceRules: [
       (v) => !!v || "Price is required",
       (v) => v.length <= 15 || "Name must be less than 15 characters",
     ],
-    startTimeRules: [(v) => !!v || "File is required"],
-    endTimeRules: [(v) => !!v || "File is required"],
     value4: "",
   }),
   methods: {
@@ -145,9 +149,45 @@ export default {
       }
     },
     auctionIem() {
-      if (this.$refs.AuctionForm.validate()) {
-        console.log(this.timeStart);
+      if (this.$refs.AuctionForm.validate() && this.timeStart && this.timeEnd) {
+        if (this.timeStart >= this.timeEnd) {
+          this.timeEndValid = "The End Time must be after Start Time";
+        } else {
+          this.timeEndValid = "";
+          // code here
+        }
+      } else {
+        this.validateStartTime();
+        this.validateEndTime();
       }
+    },
+    blurTimeStart() {
+      this.validateStartTime();
+    },
+    blurTimeEnd() {
+      this.validateEndTime();
+    },
+    validateStartTime() {
+      if (this.timeStart) {
+        this.timeStartValid = "";
+      } else {
+        this.timeStartValid = "Time Start is required";
+      }
+    },
+    validateEndTime() {
+      if (this.timeEnd) {
+        this.timeEndValid = "";
+      } else {
+        this.timeEndValid = "Time Start is required";
+      }
+    },
+  },
+  watch: {
+    timeStart() {
+      this.validateStartTime();
+    },
+    timeEnd() {
+      this.validateEndTime();
     },
   },
 };
@@ -174,5 +214,18 @@ export default {
 .price {
   font-size: 17px;
   color: #3291e9;
+}
+.title-time {
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.6);
+}
+.error-msg {
+  font-size: 12px;
+  font-weight: 400;
+  color: #ff5252;
+}
+.mx-datepicker {
+  width: 100%;
 }
 </style>

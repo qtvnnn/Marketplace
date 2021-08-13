@@ -5,9 +5,9 @@
       <v-col>
         <router-link
           style="text-decoration: none; color: inherit"
-          to="/create-auction"
+          to="/create-item-collection"
           ><v-btn color="error" outlined height="50" elevation="3"
-            >Tạo đấu giá</v-btn
+            >Create a auction</v-btn
           ></router-link
         ></v-col
       >
@@ -19,14 +19,10 @@
         ></v-text-field>
       </v-col>
       <v-col>
-        <v-select :items="items" label="Lựa chọn sắp xếp" outlined></v-select>
+        <v-select :items="items" label="Filter" outlined></v-select>
       </v-col>
       <v-col>
-        <v-select
-          :items="statusAuction"
-          label="Lựa chọn trạng thái"
-          outlined
-        ></v-select>
+        <v-select :items="statusAuction" label="Status" outlined></v-select>
       </v-col>
     </v-row>
     <v-row>
@@ -46,7 +42,7 @@
             <v-container>
               <v-row>
                 <v-col class="text-left"
-                  ><span class="item-name">Tên sản phẩm</span><br />
+                  ><span class="item-name">Itemname</span><br />
                   <span class="item-owner">Owner</span></v-col
                 >
                 <v-col class="text-right"
@@ -60,6 +56,9 @@
         </router-link>
       </v-col>
     </v-row>
+    <div class="text-center mt-8 mb-16">
+      <v-pagination v-model="page" :length="6"></v-pagination>
+    </div>
   </v-container>
 </template>
 
@@ -68,8 +67,9 @@ export default {
   name: "MyAuctions",
   components: {},
   data: () => ({
-    items: ["Giá từ thấp đến cao", "Giá từ cao đến thấp"],
-    statusAuction: ["Đang đấu giá", "Đã kết thúc", "Đang tham gia"],
+    items: ["Price: Low to Hight", "Price: Hight to Low"],
+    statusAuction: ["Auction in progress", "Finished", "Joined"],
+    page: 1,
   }),
 };
 </script>

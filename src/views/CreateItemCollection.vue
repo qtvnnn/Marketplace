@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <h1>Tạo sản phẩm cho bộ sưu tập</h1>
+          <h1>Create a NFT</h1>
         </v-col>
       </v-row>
       <ItemCollectionForm />

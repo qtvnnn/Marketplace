@@ -5,9 +5,9 @@
       <v-col>
         <router-link
           style="text-decoration: none; color: inherit"
-          to="/create-nft"
+          to="/create-item-collection"
           ><v-btn color="error" outlined height="50" elevation="5"
-            >Tạo sản phẩm</v-btn
+            >Create a NFT</v-btn
           ></router-link
         ></v-col
       >
@@ -19,7 +19,7 @@
         ></v-text-field>
       </v-col>
       <v-col>
-        <v-select :items="items" label="Lựa chọn sắp xếp" outlined></v-select>
+        <v-select :items="items" label="Filter" outlined></v-select>
       </v-col>
     </v-row>
     <v-row>
@@ -39,7 +39,7 @@
             <v-container>
               <v-row>
                 <v-col class="text-left"
-                  ><span class="item-name">Tên sản phẩm</span><br />
+                  ><span class="item-name">Itemname</span><br />
                   <span class="item-owner">Owner</span></v-col
                 >
                 <v-col class="text-right"
@@ -53,6 +53,9 @@
         </router-link>
       </v-col>
     </v-row>
+    <div class="text-center mt-8 mb-8">
+      <v-pagination v-model="page" :length="6"></v-pagination>
+    </div>
   </v-container>
 </template>
 
@@ -61,7 +64,8 @@ export default {
   name: "MyItems",
   components: {},
   data: () => ({
-    items: ["Giá từ thấp đến cao", "Giá từ cao đến thấp"],
+    items: ["Price: Low to Hight", "Price: Hight to Low"],
+    page: 1,
   }),
 };
 </script>

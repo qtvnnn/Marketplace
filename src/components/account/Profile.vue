@@ -7,7 +7,7 @@
         >
         <h2 class="mb-4 username">User Name</h2>
         <h3 class="mb-12">
-          Tài khoản của bạn:
+          Your address wallet:
           <span class="address">{{ account }} </span>
         </h3>
       </v-col>

@@ -1,22 +1,25 @@
 <template>
   <v-col align="center" class="banner-left">
-    <p class="title-banner">Chào mừng bạn đã đến với chợ đồ cũ BDA !!!</p>
+    <p class="title-banner">Welcome to Marketplace BDA !!!</p>
     <p class="mb-6" style="font-size: 24px">
-      thị trường NFT đầu tiên và lớp nhất Việt Nam
+      the Vietnam's first & largest NFT marketplace
     </p>
 
-    <router-link style="text-decoration: none; color: inherit" to="/create-nft">
+    <router-link
+      style="text-decoration: none; color: inherit"
+      to="/create-item-collection"
+    >
       <v-btn class="mr-2" color="primary" height="50" elevation="5"
-        >Tạo sản phẩm
+        >Create a NFT
       </v-btn></router-link
     >
 
     <router-link
       style="text-decoration: none; color: inherit"
-      to="/create-auction"
+      to="/create-item-collection"
     >
       <v-btn outlined color="indigo" height="50" elevation="5"
-        >Tạo đấu giá
+        >Create a auction
       </v-btn></router-link
     >
   </v-col>

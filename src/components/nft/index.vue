@@ -11,7 +11,7 @@
       <v-col class="nft-detail-right" cols="12" md="7">
         <p class="item-name">Item Name</p>
         <p class="owned">Owned by <span class="owner-name">Username</span></p>
-        <p>Mô tả sản phẩm:</p>
+        <p>Description:</p>
         <p class="description">
           The column was decorated in high relief with scenes from Greek
           mythology.

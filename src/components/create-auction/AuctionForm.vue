@@ -17,7 +17,7 @@
               v-model="name"
               :rules="nameRules"
               :counter="30"
-              label="Tên sản phẩm"
+              label="Name"
               required
             ></v-text-field>
           </v-col>
@@ -26,7 +26,7 @@
               v-model="price"
               :rules="priceRules"
               :counter="15"
-              label="Giá bán luôn"
+              label="Price"
               required
               type="number"
             ></v-text-field>
@@ -38,7 +38,7 @@
               v-model="price"
               :rules="priceRules"
               :counter="15"
-              label="Giá khởi điểm"
+              label="Starting Price"
               required
               type="number"
             ></v-text-field>
@@ -48,7 +48,7 @@
               v-model="price"
               :rules="priceRules"
               :counter="15"
-              label="Bước giá"
+              label="Step Price"
               required
               type="number"
             ></v-text-field>
@@ -56,22 +56,22 @@
         </v-row>
         <v-row>
           <v-col>
-            <v-datetime-picker label="Thời gian bắt đầu" v-model="timeStart">
+            <v-datetime-picker label="Start time" v-model="timeStart">
             </v-datetime-picker>
           </v-col>
           <v-col>
-            <v-datetime-picker label="Thời gian kết thúc" v-model="timeEnd">
+            <v-datetime-picker label="End time" v-model="timeEnd">
             </v-datetime-picker>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-textarea outlined label="Mô tả sản phẩm"></v-textarea>
+            <v-textarea outlined label="Description"></v-textarea>
           </v-col>
         </v-row>
         <v-row>
           <v-col>
-            <v-btn>Tạo đấu giá</v-btn>
+            <v-btn>Create a auction</v-btn>
           </v-col>
         </v-row>
       </v-container>
