@@ -16,8 +16,8 @@
 </template>
 
 <script>
-import getWeb3 from "../../getWeb3";
-import getContract from "../../getContract";
+import getWeb3 from "../../Function/getWeb3";
+import getContractMarketplace from "../../Get_Contract/getContractMarketplace";
 export default {
   name: "connectWallet",
   data() {
@@ -31,13 +31,10 @@ export default {
             console.log(res[0]);
             this.$store.commit("SET_ACCOUNT", res[0]);
           });
-          const contract = getContract(result);
-          this.$store.commit("SET_CONTRACT", contract);
+          const contract = getContractMarketplace(result);
+          console.log(contract);
+          this.$store.commit("SET_CONTRACT_MARKETPLACE", contract);
         });
-      } else {
-        alert(
-          "You need to have the Metamask extension first. Please set up or login to your Metamask account and connect it to continue."
-        );
       }
     },
     shortAddress(context) {

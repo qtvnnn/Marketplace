@@ -38,12 +38,10 @@ export const getTokenOfOwnerByIndex=(contract, adOwner, index)=>{
     return token;
 }
 
-export const getTokenURI = (contract, tokenId)=>{
-    let tokenURI;
-    contract.methods.tokenURI(tokenId).call().then(res=>{
-        tokenURI = res;
-    })
-    return tokenURI;
+export const getTokenURIByTokenID = async (contract, tokenId)=>{
+    const tokenURI = await contract.methods.tokenURI(tokenId).call();
+    const tokenURL = tokenURI.substring(tokenURI.lastIndexOf("/")+1,tokenURI.length);
+    return tokenURL;
 }
 
 export const getTokenURI = (contract, adOwner)=>{

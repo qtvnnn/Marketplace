@@ -5,26 +5,26 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    contract: {},
-    quan: {},
-    ngin: {},
+    contractMarketplace: {},
+    contractQuan: {},
+    contractNginNFT: {},
     account: "",
   },
   getters: {
-    getContract: (state) => state.contract,
-    getQuan: (state) => state.quan,
-    getNghin: (state) => state.ngin,
+    getContractMarketplace: (state) => state.contractMarketplace,
+    getContractQuan: (state) => state.contractQuan,
+    getContractNginNFT: (state) => state.contractNginNFT,
     getAccount: (state) => state.account,
   },
   mutations: {
-    SET_CONTRACT: (state, contract) => {
-      state.contract = contract;
+    SET_CONTRACT_MARKETPLACE: (state, contractMarketplace) => {
+      state.contractMarketplace = contractMarketplace;
     },
-    SET_QUAN: (state, quan) => {
-      state.quan = quan;
+    SET_CONTRACT_QUAN: (state, contractQuan) => {
+      state.contractQuan = contractQuan;
     },
-    SET_NGIN: (state, ngin) => {
-      state.ngin = ngin;
+    SET_CONTRACT_NGINNFT: (state, contractNginNFT) => {
+      state.contractNginNFT = contractNginNFT;
     },
     SET_ACCOUNT: (state, account) => {
       state.account = account;

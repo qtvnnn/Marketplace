@@ -12,9 +12,9 @@
 import Header from "@/components/common/Header.vue";
 import Footer from "@/components/common/Footer.vue";
 import Web3 from "web3";
-import getContract from "./getContract";
-import getContractQuan from "./getContractQuan";
-import getContractNgin from "./getContractNGIN";
+import getContractMarketplace from "./Get_Contract/getContractMarketplace";
+import getContractQuan from "./Get_Contract/getContractQuan";
+import getContractNginNFT from "./Get_Contract/getContractNginNFT";
 import { mapGetters } from "vuex";
 export default {
   name: "App",
@@ -25,7 +25,7 @@ export default {
   data: () => ({}),
   computed: {
     ...mapGetters({ account: "getAccount" }),
-    ...mapGetters({ contract: "getContract" }),
+    ...mapGetters({ contractMarketplace: "getContractMarketplace" }),
   },
   mounted() {
     this.checkConnect();
@@ -38,12 +38,12 @@ export default {
           web31.eth.getAccounts().then((res) => {
             this.$store.commit("SET_ACCOUNT", res[0]);
           });
-          const contract = getContract(web31);
-          this.$store.commit("SET_CONTRACT", contract);
+          const contract = getContractMarketplace(web31);
+          this.$store.commit("SET_CONTRACT_MARKETPLACE", contract);
           const quan = getContractQuan(web31);
-          this.$store.commit("SET_QUAN", quan);
-          const ngin = getContractNgin(web31);
-          this.$store.commit("SET_NGIN", ngin);
+          this.$store.commit("SET_CONTRACT_QUAN", quan);
+          const ngin = getContractNginNFT(web31);
+          this.$store.commit("SET_CONTRACT_NGINNFT", ngin);
         }
     },
   },

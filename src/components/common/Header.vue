@@ -70,10 +70,10 @@
 
 <script>
 import { mapActions, mapGetters } from "vuex";
-import getWeb3 from "../../getWeb3";
-import getContract from "../../getContract";
-import getContractQuan from "../../getContractQuan";
-import getContractNgin from "../../getContractNGIN";
+import getWeb3 from "../../Function/getWeb3";
+import getContractMarketplace from "../../Get_Contract/getContractMarketplace";
+import getContractQuan from "../../Get_Contract/getContractQuan";
+import getContractNgin from "../../Get_Contract/getContractNginNFT";
 export default {
   data: () => ({}),
   methods: {
@@ -83,12 +83,12 @@ export default {
           result.eth.getAccounts().then((res) => {
             this.$store.commit("SET_ACCOUNT", res[0]);
           });
-          const contract = getContract(result);
-          this.$store.commit("SET_CONTRACT", contract);
+          const contract = getContractMarketplace(result);
+          this.$store.commit("SET_CONTRACT_MARKETPLACE", contract);
           const quan = getContractQuan(result);
-          this.$store.commit("SET_QUAN", quan);
+          this.$store.commit("SET_CONTRACT_QUAN", quan);
           const ngin = getContractNgin(result);
-          this.$store.commit("SET_NGIN", ngin);
+          this.$store.commit("SET_CONTRACT_NGINNFT", ngin);
         }
       });
     },

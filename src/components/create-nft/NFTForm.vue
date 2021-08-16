@@ -53,7 +53,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-import * as ListFunction from "../../ListFunction";
+// import * as ListFunction from "../../ListFunction";
 export default {
   name: "CreateNFT",
   components: {},
@@ -81,29 +81,29 @@ export default {
     imgFile:
       "https://lh3.googleusercontent.com/06DG0Jq_0OUOp0cqfaQh2KyywUMNeeQBrrim1JtNcs6jf0t1e6fuEmO8EOA-eHiR7sHdgqvjjh7wnxgMzeoIIea6lnXTmUx6fEn7FQ=s550",
   }),
-  methods: {
-    createNFT1() {
-      const formData = new FormData();
-      formData.append('fileNFT', this.nft.fileNFT)
-      formData.append('title', this.nft.title)
-      formData.append('name', this.nft.name)
-      formData.append('desc', this.nft.desc)
-      formData.append('size', this.nft.size)
-      formData.append('type', this.nft.type)
-      formData.append('lastModified', this.nft.lastModified)
-      formData.append('lastModifiedDate', this.nft.lastModifiedDate)
-      console.log(this.contract);
-      ListFunction.TaoNFT(this.contractNGIN, formData, this.account);
-      console.log(formData);
-    },
-    selectFile(file) {
+  // methods: {
+  //   createNFT1() {
+  //     const formData = new FormData();
+  //     formData.append('fileNFT', this.nft.fileNFT)
+  //     formData.append('title', this.nft.title)
+  //     formData.append('name', this.nft.name)
+  //     formData.append('desc', this.nft.desc)
+  //     formData.append('size', this.nft.size)
+  //     formData.append('type', this.nft.type)
+  //     formData.append('lastModified', this.nft.lastModified)
+  //     formData.append('lastModifiedDate', this.nft.lastModifiedDate)
+  //     console.log(this.contract);
+  //     ListFunction.TaoNFT(this.contractNGIN, formData, this.account);
+  //     console.log(formData);
+  //   },
+  //   selectFile(file) {
 
-      this.nft.fileNFT = file;
-    },
-  },
+  //     this.nft.fileNFT = file;
+  //   },
+  // },
   computed: {
-    ...mapGetters({ contractNGIN: "getNghin" }),
-    ...mapGetters({ contract: "getContract" }),
+    ...mapGetters({ contractNginNFT: "getContractNginNFT" }),
+    ...mapGetters({ contractMarketplace: "getContractMarketplace" }),
     ...mapGetters({ account: "getAccount" }),
   },
 };

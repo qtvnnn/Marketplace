@@ -1,4 +1,4 @@
-import Quan from "./Contract/ContractQuan.json";
+import Quan from "../Contract/Quan.json";
 
 export default (web3) => {
   return new web3.eth.Contract(
