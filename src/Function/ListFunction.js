@@ -1,7 +1,7 @@
 import { createNewNFT, getListNFTByArrTokenURL } from "./../Config_API/Api_Caller";
-import { setSafeMint } from './../functionWriteNginNFT';
-import { setApprove } from './../Writer_Contract/functionWriteNginNFT';
-import { TaoHopDongMuaBan } from './../functionWriteContract';
+// import { setSafeMint } from './../functionWriteNginNFT';
+import { setApprove, setSafeMint } from '../Writer_Contract/functionWriteNginNFT';
+import { TaoHopDongMuaBan } from '../Writer_Contract/functionWriteMarketplace';
 import { TaoPhienDauGia1 } from "../Writer_Contract/functionWriteMarketplace";
 
 export const LayDanhSachNFTSoHuu = async (contractNginNFT,adOwner,page) => {

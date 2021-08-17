@@ -1,4 +1,4 @@
-import NginNFT from "../Contract/NginNFT.json";
+import NginNFT from "../Contract/NGINNFT.json";
 
 export default (web3) => {
   return new web3.eth.Contract(
