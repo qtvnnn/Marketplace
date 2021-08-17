@@ -1,7 +1,7 @@
 import { createNewNFT, getListNFTByArrTokenURL } from "./../Config_API/Api_Caller";
-// import { setSafeMint } from './../functionWriteNginNFT';
-import { setApprove, setSafeMint } from '../Writer_Contract/functionWriteNginNFT';
-import { TaoHopDongMuaBan } from '../Writer_Contract/functionWriteMarketplace';
+import { setSafeMint, setApprove } from './../Writer_Contract/functionWriteNginNFT';
+import { setApproveQuan } from './../Writer_Contract/functionWriteQuan';
+import { HuyBanHang, KetThucPhienDauGia, TaoHopDongMuaBan, ThamGiaDauGia, MuaHang, MuaLuonPhienDauGia } from './../Writer_Contract/functionWriteMarketplace';
 import { TaoPhienDauGia1 } from "../Writer_Contract/functionWriteMarketplace";
 
 export const LayDanhSachNFTSoHuu = async (contractNginNFT,adOwner,page) => {
@@ -325,3 +325,40 @@ export const TaoPhienThucHienDauGia = (contract,contractNginNFT,tokenId,giaKhoiD
       TaoPhienDauGia1(contract,account,tokenId,giaKhoiDiem,giaBanLuon,buocGia,thoiGianBatDau,thoiGianKetThuc);
     });
 };
+
+export const ThucHienHuyBanHang = (contract,account,maHopDong)=>{
+    HuyBanHang(contract,account,maHopDong).then(res=>{
+        window.alert("Hủy bán hàng thành công !!!" + res);
+    }).catch(err=>{
+        window.alert("Hủy bán hàng thất !!!" + err);
+    })
+}
+
+export const ThucHienThamGiaDauGia = (contract, contractQuan,account,maPhien,tienDauGia) =>{
+    setApproveQuan(contractQuan,account,"0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",tienDauGia).then(res=>{
+        console.log(res);
+        ThamGiaDauGia(contract,account,maPhien,tienDauGia);
+    })
+}
+
+export const ThucHienKetThucPhienDauGia = (contract,account,maPhien)=>{
+    KetThucPhienDauGia(contract,account,maPhien).then(res=>{
+        window.alert("Hủy bán hàng thành công !!!" + res);
+    }).catch(err=>{
+        window.alert("Hủy bán hàng thất !!!" + err);
+    })
+}
+
+export const ThucHienMuaHang = (contract, contractQuan,account,maHopDong,tienGui) =>{
+    setApproveQuan(contractQuan,account,"0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",tienGui).then(res=>{
+        console.log(res);
+        MuaHang(contract,account,maHopDong,tienGui);
+    })
+}
+
+export const ThucHienMuaLuonPhienDauGia = (contract, contractQuan,account,maPhien,tienMuaLuon) =>{
+    setApproveQuan(contractQuan,account,"0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",tienMuaLuon).then(res=>{
+        console.log(res);
+        MuaLuonPhienDauGia(contract,account,maPhien,tienMuaLuon);
+    })
+}

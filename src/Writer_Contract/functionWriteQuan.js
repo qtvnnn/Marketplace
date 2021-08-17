@@ -1,4 +1,4 @@
-export const setApprove = (contract, account, spender, amount)=>{
+export const setApproveQuan = (contract, account, spender, amount)=>{
     return contract.methods.approve(spender,amount).send({from:account});
 }
 
