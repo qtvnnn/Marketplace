@@ -2,11 +2,7 @@
   <v-container>
     <v-row>
       <v-col cols="12" md="5">
-        <v-img
-          class="banner-img"
-          max-height="600"
-          src="https://lh3.googleusercontent.com/gerpAEWBpUrL784sMdXAUEUF86-9GxraSLrqcA_2cqo2IiJ_9wIvtlL17ztRWscrFWKqr7fb3NUqV3omPWzkLdB_lGqM6HLIUXkqOw=w600"
-        ></v-img
+        <v-img class="banner-img" max-height="600" :src="itemDetail.uri"></v-img
       ></v-col>
       <v-col class="nft-detail-right" cols="12" md="7">
         <p class="item-name">Itemname</p>
@@ -107,7 +103,6 @@
                   <v-row>
                     <v-col>
                       <v-btn @click="auctionIem">Auction</v-btn>
-                      <!-- <date-picker v-model="value4" type="datetime" placeholder="Select datetime"></date-picker> -->
                     </v-col>
                   </v-row>
                 </v-form>
@@ -121,31 +116,72 @@
 </template>
 
 <script>
+import * as ListFunction from "../../Function/ListFunction";
+import { mapGetters } from "vuex";
 import DatePicker from "vue2-datepicker";
 import "vue2-datepicker/index.css";
 export default {
   name: "NFT",
   components: { DatePicker },
-  data: () => ({
-    validSell: true,
-    validAuction: true,
-    price: "",
-    startPrice: "",
-    stepPrice: "",
-    timeStart: "",
-    timeEnd: "",
-    timeStartValid: "",
-    timeEndValid: "",
-    priceRules: [
-      (v) => !!v || "Price is required",
-      (v) => v.length <= 15 || "Name must be less than 15 characters",
-    ],
-    value4: "",
-  }),
+  data() {
+    return {
+      validSell: true,
+      validAuction: true,
+      price: "",
+      startPrice: "",
+      stepPrice: "",
+      timeStart: "",
+      timeEnd: "",
+      timeStartValid: "",
+      timeEndValid: "",
+      priceRules: [
+        (v) => !!v || "Price is required",
+        (v) => v.length <= 15 || "Name must be less than 15 characters",
+      ],
+      listCollection: [],
+      tokenId: this.$route.params.id,
+      itemDetail: {},
+    };
+  },
+  computed: {
+    ...mapGetters({ contractMarketplace: "getContractMarketplace" }),
+    ...mapGetters({ contractNginNFT: "getContractNginNFT" }),
+    ...mapGetters({ account: "getAccount" }),
+  },
+  mounted() {
+    setTimeout(() => {
+      this.LayDanhSachNFTSoHuu();
+    }, 1000);
+  },
   methods: {
+    LayDanhSachNFTSoHuu() {
+      ListFunction.LayDanhSachNFTSoHuu(
+        this.contractNginNFT,
+        this.account,
+        0
+      ).then((res) => {
+        res.forEach((item) => {
+          if (item.TokenId == this.tokenId) {
+            this.itemDetail = item.Metadata.metadata;
+          }
+        });
+        console.log(res);
+        console.log(this.tokenId);
+        this.listCollection = res;
+      });
+    },
     sellItem() {
       if (this.$refs.sellForm.validate()) {
         console.log(this.price);
+        ListFunction.TaoNFTMuaBan(
+          this.contractMarketplace,
+          this.contractNginNFT,
+          this.tokenId,
+          this.price,
+          this.account
+        ).then((res) => {
+          console.log(res);
+        });
       }
     },
     auctionIem() {

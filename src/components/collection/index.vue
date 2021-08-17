@@ -12,7 +12,7 @@
             style="text-decoration: none; color: inherit"
             to="/create-item-collection"
           >
-            <v-btn class="mt-4" elevation="5" height="50">
+            <v-btn class="mt-4 mb-8" elevation="5" height="50">
               Create a item collection
             </v-btn></router-link
           >

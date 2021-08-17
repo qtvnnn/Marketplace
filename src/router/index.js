@@ -44,17 +44,17 @@ const routes = [
     component: CreateItemCollection,
   },
   {
-    path: "/nft/1",
+    path: "/nft/:id",
     name: "NFTDetail",
     component: NFTDetail,
   },
   {
-    path: "/auction/1",
+    path: "/auction/:id",
     name: "AuctionDetail",
     component: AuctionDetail,
   },
   {
-    path: "/item-collection/1",
+    path: "/item-collection/:id",
     name: "ItemCollectionDetail",
     component: ItemCollectionDetail,
   },

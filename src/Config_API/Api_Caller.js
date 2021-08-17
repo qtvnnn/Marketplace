@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'axios';
 const API_CALLER = (endpoint, method,body)=>{
     return axios({
         url: `https://nft-node-server.herokuapp.com/api/nft/${endpoint}`,
@@ -12,7 +12,7 @@ export const getNFTByTokenURL = (tokenURL)=>{
 }
 
 export const createNewNFT = (data)=>{
-    return API_CALLER('createNewNFT','POST',data);
+   return API_CALLER('createNewNFT','POST',data)
 }
 
 export const getListNFTByArrTokenURL = (arrTokenURL)=>{

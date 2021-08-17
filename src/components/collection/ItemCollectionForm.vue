@@ -53,7 +53,7 @@
 
 <script>
 import { mapGetters } from "vuex";
-// import * as ListFunction from "../../ListFunction";
+import * as ListFunction from "../../Function/ListFunction";
 export default {
   name: "CreateItemCollection",
   components: {},
@@ -64,11 +64,6 @@ export default {
       fileNFT: "",
       title: "",
       desc: "",
-      name: "picture-pawn.png",
-      size: "",
-      type: "",
-      lastModified: "",
-      lastModifiedDate: "",
     },
     nameRules: [
       (v) => !!v || "Name is required",
@@ -79,35 +74,24 @@ export default {
     imgFile:
       "https://lh3.googleusercontent.com/06DG0Jq_0OUOp0cqfaQh2KyywUMNeeQBrrim1JtNcs6jf0t1e6fuEmO8EOA-eHiR7sHdgqvjjh7wnxgMzeoIIea6lnXTmUx6fEn7FQ=s550",
   }),
-  // methods: {
-  //   createNFT1() {
-  //     if (this.$refs.form.validate()) {
-  //       const formData = new FormData();
-  //       formData.append("fileNFT", this.nft.fileNFT);
-  //       formData.append("title", this.nft.title);
-  //       formData.append("name", this.nft.name);
-  //       formData.append("desc", this.nft.desc);
-  //       formData.append("size", this.nft.size);
-  //       formData.append("type", this.nft.type);
-  //       formData.append("lastModified", this.nft.lastModified);
-  //       formData.append("lastModifiedDate", this.nft.lastModifiedDate);
+  methods: {
+    createNFT1() {
+      if (this.$refs.form.validate()) {
+        const formData = new FormData();
+        formData.append("fileNFT", this.nft.fileNFT);
+        formData.append("title", this.nft.title);
+        formData.append("desc", this.nft.desc);
+        ListFunction.TaoNFT(this.contractNginNFT, formData, this.account);
+        console.log(this.nft.fileNFT);
+        console.log(formData);
 
-  //       ListFunction.TaoNFT(this.contractNGIN, formData, this.account);
-  //       console.log(this.nft);
-  //       console.log(formData);
-
-  //       // this.$router.push("/collections");
-  //     }
-  //   },
-  //   selectFile(file) {
-  //     this.nft.fileNFT = file;
-  //     this.nft.name = file.name;
-  //     this.nft.size = file.size;
-  //     this.nft.type = file.type;
-  //     this.nft.lastModified = file.lastModified;
-  //     this.nft.lastModifiedDate = file.lastModifiedDate;
-  //   },
-  // },
+        // this.$router.push("/collections");
+      }
+    },
+    selectFile(file) {
+      this.nft.fileNFT = file;
+    },
+  },
   computed: {
     ...mapGetters({ contractNginNFT: "getContractNginNFT" }),
     ...mapGetters({ contractMarketplace: "getContractMarketplace" }),
