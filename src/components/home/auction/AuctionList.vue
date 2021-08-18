@@ -1,7 +1,6 @@
 <template>
   <v-container>
     <span class="title-auction-list">Explore the Auction marketplace</span>
-    <!-- <p>test: {{ auctionList }}</p> -->
     <v-row class="mt-6">
       <v-col v-for="n in 8" :key="n" cols="3">
         <router-link

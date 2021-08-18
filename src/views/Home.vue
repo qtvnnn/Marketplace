@@ -2,7 +2,7 @@
   <v-app id="inspire">
     <Banner />
     <v-main>
-      <NFTList />
+      <NFTList :nftList="nftList" :isLoad="isLoad" />
       <AuctionList :auctionList="auctionList" />
     </v-main>
   </v-app>
@@ -18,6 +18,7 @@ export default {
   name: "Home",
   data() {
     return {
+      isLoad: true,
       nftList: [],
       auctionList: [],
     };
@@ -48,6 +49,10 @@ export default {
         0
       ).then((res) => {
         console.log(res);
+        this.nftList = res;
+        // this.nftList = res.filter((item) => item.HopDong.TrangThaiHopDong == 0);
+        this.isLoad = false;
+        console.log(this.nftList);
       });
     },
     layDanhSachPhienDauGia() {

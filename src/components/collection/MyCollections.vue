@@ -1,53 +1,58 @@
 <template>
   <div>
-    <v-row>
-      <v-col v-for="(item, index) in listCollection" :key="index" cols="4">
-        <router-link
-          style="text-decoration: none; color: inherit"
-          :to="{
-            name: 'ItemCollectionDetail',
-            params: { id: item.TokenId },
-          }"
-          target="_blank"
-        >
-          <v-card height="400" align="center">
-            <div class="img-contain" style="height: 320px">
-              <img class="item-img" :src="item.Metadata.metadata.uri" />
-            </div>
-            <v-container>
-              <v-row>
-                <v-col class="text-left"
-                  ><span class="item-name">{{
-                    item.Metadata.metadata.title
-                  }}</span
-                  ><br />
-                  <span class="item-owner">{{
-                    shortAddress(account)
-                  }}</span></v-col
-                >
-              </v-row>
-            </v-container>
-          </v-card>
-        </router-link>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col>
-        <div class="text-center mt-8 mb-16">
-          <v-pagination v-model="page" :length="6"></v-pagination>
-        </div>
-      </v-col>
-    </v-row>
+    <Loading v-if="isLoad" />
+    <div v-else>
+      <v-row>
+        <v-col v-for="(item, index) in listCollection" :key="index" cols="4">
+          <router-link
+            style="text-decoration: none; color: inherit"
+            :to="{
+              name: 'ItemCollectionDetail',
+              params: { id: item.TokenId },
+            }"
+            target="_blank"
+          >
+            <v-card height="400" align="center">
+              <div class="img-contain" style="height: 320px">
+                <img class="item-img" :src="item.Metadata.metadata.uri" />
+              </div>
+              <v-container>
+                <v-row>
+                  <v-col class="text-left"
+                    ><span class="item-name">{{
+                      item.Metadata.metadata.title
+                    }}</span
+                    ><br />
+                    <span class="item-owner">{{
+                      shortAddress(account)
+                    }}</span></v-col
+                  >
+                </v-row>
+              </v-container>
+            </v-card>
+          </router-link>
+        </v-col>
+      </v-row>
+      <v-row>
+        <v-col>
+          <div class="text-center mt-8 mb-16">
+            <v-pagination v-model="page" :length="6"></v-pagination>
+          </div>
+        </v-col>
+      </v-row>
+    </div>
   </div>
 </template>
 
 <script>
+import Loading from "../common/Loading.vue";
 import * as ListFunction from "../../Function/ListFunction";
 import { mapGetters } from "vuex";
 export default {
   name: "MyItems",
-  components: {},
+  components: { Loading },
   data: () => ({
+    isLoad: true,
     page: 1,
     listCollection: [],
   }),
@@ -70,6 +75,7 @@ export default {
       ).then((res) => {
         console.log(res);
         this.listCollection = res;
+        this.isLoad = false;
       });
     },
     shortAddress(context) {
