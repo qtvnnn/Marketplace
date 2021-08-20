@@ -44,7 +44,6 @@ export default {
           this.$store.commit("SET_CONTRACT_QUAN", quan);
           const ngin = getContractNginNFT(web31);
           this.$store.commit("SET_CONTRACT_NGINNFT", ngin);
-          console.log(ngin);
         }
     },
   },

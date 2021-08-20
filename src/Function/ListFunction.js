@@ -18,14 +18,19 @@ import {
 import { TaoPhienDauGia1 } from "../Writer_Contract/functionWriteMarketplace";
 const { ethers } = require("ethers");
 const BigNumber = ethers.BigNumber;
+
 //collection
 export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
+  // Lay danh sach tokenId theo nguoi so huu
   const DanhSachTokenId = await contractNginNFT.methods
     .tokensOfOwner(adOwner)
     .call();
+
   const ViTri = DanhSachTokenId.length - page >= 8 ? 8 : DanhSachTokenId.length;
 
   const DanhSachTokenURLVaTokenId = [];
+
+  const DanhSachTokenURL = [];
   for (let i = page; i < ViTri; i++) {
     const tokenURL = await contractNginNFT.methods
       .tokenURI(DanhSachTokenId[i])
@@ -39,11 +44,7 @@ export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
       TokenId: DanhSachTokenId[i],
     };
     DanhSachTokenURLVaTokenId.push(data);
-  }
-
-  const DanhSachTokenURL = [];
-  for (let i = 0; i < DanhSachTokenURLVaTokenId.length; i++) {
-    DanhSachTokenURL.push(DanhSachTokenURLVaTokenId[i].tokenURI);
+    DanhSachTokenURL.push(tokenURL1);
   }
   if (DanhSachTokenURL.length > 0) {
     let data1 = {
@@ -56,7 +57,7 @@ export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
     for (let i = 0; i < listMetatdata.data.data.length; i++) {
       const tokenURIByMetadate = listMetatdata.data.data[i].tokenURI;
       DanhSachTokenURLVaTokenId.filter((danhSach) => {
-        if (tokenURIByMetadate === danhSach.tokenURI) {
+        if (tokenURIByMetadate == danhSach.tokenURI) {
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             TokenId: danhSach.TokenId,
@@ -66,6 +67,8 @@ export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
       });
     }
     return Data;
+  } else {
+    return [];
   }
 };
 
@@ -76,24 +79,22 @@ export const LayTatCaDanhSachNFTMuaBan = async (
   page
 ) => {
   let DanhSachTatCaCacHopDong = [];
+
   const TongSoHopDong = await contract.methods.TongSoHopDong().call();
+
   for (let i = 1; i <= TongSoHopDong; i++) {
     const a = await contract.methods.DanhSachHopDongMuaBan(i).call();
-    if(a.TrangThaiHopDong == 0){
-    DanhSachTatCaCacHopDong.push(a);
-  }
-  }
-  const DanhSachTokenId = [];
-  for (let i = 0; i < DanhSachTatCaCacHopDong.length; i++) {
-    DanhSachTokenId.push(DanhSachTatCaCacHopDong[i].tokenId);
+    if (a.TrangThaiHopDong == 0) {
+      DanhSachTatCaCacHopDong.push(a);
+    }
   }
   const ViTri =
     DanhSachTatCaCacHopDong.length - page >= 8
       ? 8
       : DanhSachTatCaCacHopDong.length;
 
-      console.log(ViTri);
   const DanhSachTokenURLVaHopDong = [];
+
   for (let i = page; i < ViTri; i++) {
     const tokenURL = await contractNginNFT.methods
       .tokenURI(DanhSachTatCaCacHopDong[i].tokenId)
@@ -110,7 +111,6 @@ export const LayTatCaDanhSachNFTMuaBan = async (
   }
 
   const DanhSachTokenURL = [];
-  console.log(DanhSachTokenURLVaHopDong.length);
   for (let i = 0; i < DanhSachTokenURLVaHopDong.length; i++) {
     DanhSachTokenURL.push(DanhSachTokenURLVaHopDong[i].tokenURI);
   }
@@ -120,9 +120,7 @@ export const LayTatCaDanhSachNFTMuaBan = async (
         arrList: DanhSachTokenURL,
       },
     };
-    console.log(DanhSachTokenURL.length);
     const listMetatdata = await getListNFTByArrTokenURL(data1);
-    console.log(listMetatdata);
     const Data = [];
     for (let i = 0; i < listMetatdata.data.data.length; i++) {
       const tokenURIByMetadate = listMetatdata.data.data[i].tokenURI;
@@ -136,8 +134,9 @@ export const LayTatCaDanhSachNFTMuaBan = async (
         }
       });
     }
-    console.log(Data.length);
     return Data;
+  } else {
+    return [];
   }
 };
 
@@ -149,6 +148,7 @@ export const LayTatCaDanhSachNFTMuaBanSoHuu = async (
   page
 ) => {
   let DanhSachTatCaCacHopDong = [];
+
   let DanhSachMaHopDongMuaBanSoHuu = await contract.methods
     .LayDanhSachMaHopDongSoHuu(adOwner)
     .call();
@@ -158,16 +158,13 @@ export const LayTatCaDanhSachNFTMuaBanSoHuu = async (
       .call();
     DanhSachTatCaCacHopDong.push(a);
   }
-  const DanhSachTokenId = [];
-  for (let i = 0; i < DanhSachTatCaCacHopDong.length; i++) {
-    DanhSachTokenId.push(DanhSachTatCaCacHopDong[i].tokenId);
-  }
   const ViTri =
     DanhSachTatCaCacHopDong.length - page >= 8
       ? 8
       : DanhSachTatCaCacHopDong.length;
 
   const DanhSachTokenURLVaHopDong = [];
+
   for (let i = page; i < ViTri; i++) {
     const tokenURL = await contractNginNFT.methods
       .tokenURI(DanhSachTatCaCacHopDong[i].tokenId)
@@ -198,7 +195,7 @@ export const LayTatCaDanhSachNFTMuaBanSoHuu = async (
     for (let i = 0; i < listMetatdata.data.data.length; i++) {
       const tokenURIByMetadate = listMetatdata.data.data[i].tokenURI;
       DanhSachTokenURLVaHopDong.filter((danhSach) => {
-        if (tokenURIByMetadate === danhSach.tokenURI) {
+        if (tokenURIByMetadate == danhSach.tokenURI) {
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             HopDong: danhSach.HopDong,
@@ -221,8 +218,8 @@ export const LayTatCaDanhSachNFTDauGia = async (
   const TongSoPhien = await contract.methods.TongSoPhien().call();
   for (let i = 1; i <= TongSoPhien; i++) {
     const a = await contract.methods.DanhSachTatCaCacPhienDauGia(i).call();
-    if(a.HoatDong === true ){
-        DanhSachTatCaCacPhien.push(a);
+    if (a.HoatDong === true) {
+      DanhSachTatCaCacPhien.push(a);
     }
   }
   const ViTri =
@@ -269,6 +266,8 @@ export const LayTatCaDanhSachNFTDauGia = async (
       });
     }
     return Data;
+  } else {
+    return [];
   }
 };
 
@@ -333,6 +332,8 @@ export const LayTatCaDanhSachNFTDauGiaSoHuu = async (
       });
     }
     return Data;
+  } else {
+    return [];
   }
 };
 
@@ -397,14 +398,13 @@ export const LayTatCaDanhSachNFTDauGiaThamGia = async (
       });
     }
     return Data;
+  } else {
+    return [];
   }
 };
 
 // tao nft collection
 export const TaoNFT = (contractNginNFT, nft, account) => {
-  console.log(createNewNFT(nft));
-  console.log(account);
-  console.log(contractNginNFT);
   createNewNFT(nft)
     .then((res) => {
       const { data } = res;
@@ -420,6 +420,10 @@ export const TaoNFT = (contractNginNFT, nft, account) => {
                   console.log(res.events.Transfer.returnValues.tokenId);
                   window.alert("Create NFT success !!!");
                 }
+              })
+              .catch((err) => {
+                console.log(err);
+                window.alert("Create NFT false !!!");
               });
           } else {
             contractNginNFT.methods
@@ -430,6 +434,10 @@ export const TaoNFT = (contractNginNFT, nft, account) => {
                   console.log(res.events.Transfer.returnValues.tokenId);
                   window.alert("Create NFT success !!!");
                 }
+              })
+              .catch((err) => {
+                console.log(err);
+                window.alert("Create NFT false !!!");
               });
           }
         }
@@ -437,6 +445,7 @@ export const TaoNFT = (contractNginNFT, nft, account) => {
     })
     .catch((err) => {
       console.log(err);
+      window.alert("Create NFT false !!!");
     });
 };
 
@@ -453,83 +462,114 @@ export const TaoNFTMuaBan = (
     account,
     "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
     tokenId
-  ).then((res) => {
-    if (res < 1000000) {
-      contractNginNFT.methods
-        .approve("0x5Eda6E2a4a023c9D69Da477A6425550B2794B057", tokenId)
-        .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-        .then((res) => {
-          if (res) {
-            TaoHopDongMuaBan(contract, account, tokenId, tienHang).then(
-              (res1) => {
-                if (res1 < 1000000) {
-                  contract.methods
-                    .TaoHopDongMuaBan(tokenId, tienHang)
-                    .send({
-                      from: account,
-                      gas: 1000000,
-                      gasPrice: "5000000000",
-                    })
-                    .then((res2) => {
-                      if (res2) {
-                        console.log(res.events.Transfer.returnValues.tokenId);
-                        window.alert("Create NFT market success !!!");
-                      }
-                    });
-                } else {
-                  contract.methods
-                    .TaoHopDongMuaBan(tokenId, tienHang)
-                    .send({ from: account })
-                    .then((res2) => {
-                      if (res2) {
-                        console.log(res.events.Transfer.returnValues.tokenId);
-                        window.alert("Create NFT market success !!!");
-                      }
-                    });
-                }
-              }
-            );
-          }
-        });
-    } else {
-      contractNginNFT.methods
-        .approve("0x5Eda6E2a4a023c9D69Da477A6425550B2794B057", tokenId)
-        .send({ from: account })
-        .then((res) => {
-          if (res) {
-            TaoHopDongMuaBan(contract, account, tokenId, tienHang).then(
-              (res1) => {
-                if (res1 < 1000000) {
-                  contract.methods
-                    .TaoHopDongMuaBan(tokenId, tienHang)
-                    .send({
-                      from: account,
-                      gas: 1000000,
-                      gasPrice: "5000000000",
-                    })
-                    .then((res2) => {
-                      if (res2) {
-                        console.log(res.events.Transfer.returnValues.tokenId);
-                        window.alert("Create NFT market success !!!");
-                      }
-                    });
-                } else {
-                  contract.methods
-                    .TaoHopDongMuaBan(tokenId, tienHang)
-                    .send({ from: account })
-                    .then((res2) => {
-                      if (res2) {
-                        console.log(res.events.Transfer.returnValues.tokenId);
-                        window.alert("Create NFT market success !!!");
-                      }
-                    });
-                }
-              }
-            );
-          }
-        });
-    }
-  });
+  )
+    .then((res) => {
+      if (res < 1000000) {
+        contractNginNFT.methods
+          .approve("0x5Eda6E2a4a023c9D69Da477A6425550B2794B057", tokenId)
+          .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
+          .then((res) => {
+            if (res) {
+              TaoHopDongMuaBan(contract, account, tokenId, tienHang)
+                .then((res1) => {
+                  if (res1 < 1000000) {
+                    contract.methods
+                      .TaoHopDongMuaBan(tokenId, tienHang)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res2) => {
+                        if (res2) {
+                          console.log(res.events.Transfer.returnValues.tokenId);
+                          window.alert("Create NFT market success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT market false !!!");
+                      });
+                  } else {
+                    contract.methods
+                      .TaoHopDongMuaBan(tokenId, tienHang)
+                      .send({ from: account })
+                      .then((res2) => {
+                        if (res2) {
+                          console.log(res.events.Transfer.returnValues.tokenId);
+                          window.alert("Create NFT market success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT market false !!!");
+                      });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  window.alert("Create NFT market false !!!");
+                });
+            }
+          });
+      } else {
+        contractNginNFT.methods
+          .approve("0x5Eda6E2a4a023c9D69Da477A6425550B2794B057", tokenId)
+          .send({ from: account })
+          .then((res) => {
+            if (res) {
+              TaoHopDongMuaBan(contract, account, tokenId, tienHang)
+                .then((res1) => {
+                  if (res1 < 1000000) {
+                    contract.methods
+                      .TaoHopDongMuaBan(tokenId, tienHang)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res2) => {
+                        if (res2) {
+                          console.log(res.events.Transfer.returnValues.tokenId);
+                          window.alert("Create NFT market success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT market false !!!");
+                      });
+                  } else {
+                    contract.methods
+                      .TaoHopDongMuaBan(tokenId, tienHang)
+                      .send({ from: account })
+                      .then((res2) => {
+                        if (res2) {
+                          console.log(res.events.Transfer.returnValues.tokenId);
+                          window.alert("Create NFT market success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT market false !!!");
+                      });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  window.alert("Create NFT market false !!!");
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            window.alert("Create NFT market false !!!");
+          });
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+      window.alert("Create NFT market false !!!");
+    });
 };
 
 // form detail dau gia
@@ -549,52 +589,70 @@ export const TaoPhienThucHienDauGia = (
     account,
     "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
     tokenId
-  ).then(() => {
-    TaoPhienDauGia1(
-      contract,
-      account,
-      tokenId,
-      giaKhoiDiem,
-      giaBanLuon,
-      buocGia,
-      thoiGianBatDau,
-      thoiGianKetThuc
-    ).then((res) => {
-      if (res < 1000000) {
-        contract.methods
-          .TaoPhienDauGia(
-            tokenId,
-            giaKhoiDiem,
-            giaBanLuon,
-            buocGia,
-            thoiGianBatDau,
-            thoiGianKetThuc
-          )
-          .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-          .then((res) => {
-            if (res) {
-              window.alert("Create NFT aution success !!!");
-            }
-          });
-      } else {
-        contract.methods
-          .TaoPhienDauGia(
-            tokenId,
-            giaKhoiDiem,
-            giaBanLuon,
-            buocGia,
-            thoiGianBatDau,
-            thoiGianKetThuc
-          )
-          .send({ from: account })
-          .then((res) => {
-            if (res) {
-              window.alert("Create NFT aution success !!!");
-            }
-          });
-      }
+  )
+    .then(() => {
+      TaoPhienDauGia1(
+        contract,
+        account,
+        tokenId,
+        giaKhoiDiem,
+        giaBanLuon,
+        buocGia,
+        thoiGianBatDau,
+        thoiGianKetThuc
+      )
+        .then((res) => {
+          if (res < 1000000) {
+            contract.methods
+              .TaoPhienDauGia(
+                tokenId,
+                giaKhoiDiem,
+                giaBanLuon,
+                buocGia,
+                thoiGianBatDau,
+                thoiGianKetThuc
+              )
+              .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
+              .then((res) => {
+                if (res) {
+                  window.alert("Create NFT aution success !!!");
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                window.alert("Create NFT aution false !!!");
+              });
+          } else {
+            contract.methods
+              .TaoPhienDauGia(
+                tokenId,
+                giaKhoiDiem,
+                giaBanLuon,
+                buocGia,
+                thoiGianBatDau,
+                thoiGianKetThuc
+              )
+              .send({ from: account })
+              .then((res) => {
+                if (res) {
+                  window.alert("Create NFT aution success !!!");
+                }
+              })
+              .catch((err) => {
+                console.log(err);
+                window.alert("Create NFT aution false !!!");
+              });
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          window.alert("Create NFT aution false !!!");
+        });
+    })
+    .catch((err) => {
+      console.log(err);
+      window.alert("Create NFT aution false !!!");
     });
-  });
 };
 
 //
@@ -609,6 +667,9 @@ export const ThucHienHuyBanHang = (contract, account, maHopDong) => {
             if (res) {
               window.alert("Hủy bán hàng thành công !!!" + res);
             }
+          })
+          .catch((err) => {
+            window.alert("Hủy bán hàng thất !!!" + err);
           });
       } else {
         contract.methods
@@ -618,6 +679,9 @@ export const ThucHienHuyBanHang = (contract, account, maHopDong) => {
             if (res) {
               window.alert("Hủy bán hàng thành công !!!" + res);
             }
+          })
+          .catch((err) => {
+            window.alert("Hủy bán hàng thất !!!" + err);
           });
       }
     })
@@ -639,85 +703,108 @@ export const ThucHienThamGiaDauGia = (
     account,
     "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
     tienDauGia
-  ).then((res) => {
-    if (res < 1000000) {
-      contractQuan.methods
-        .approve(
-          "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
-          BigNumber.from("" + tienDauGia * 1000000000000000000)
-        )
-        .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-        .then((res) => {
-          if (res) {
-            ThamGiaDauGia(contract, account, maPhien, tienDauGia).then(
-              (res) => {
-                if (res < 1000000) {
-                  contract.methods
-                    .DauGia(maPhien, tienDauGia)
-                    .send({
-                      from: account,
-                      gas: 1000000,
-                      gasPrice: "5000000000",
-                    })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Tham gia đáu giá thành công !!!" + res);
-                      }
-                    });
-                } else {
-                  contract.methods
-                    .DauGia(maPhien, tienDauGia)
-                    .send({ from: account })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Tham gia đáu giá thành công !!!" + res);
-                      }
-                    });
-                }
-              }
-            );
-          }
-        });
-    } else {
-      contractQuan.methods
-        .approve(
-          "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
-          BigNumber.from("" + tienDauGia * 1000000000000000000)
-        )
-        .send({ from: account })
-        .then((res) => {
-          if (res) {
-            ThamGiaDauGia(contract, account, maPhien, tienDauGia).then(
-              (res) => {
-                if (res < 1000000) {
-                  contract.methods
-                    .DauGia(maPhien, tienDauGia)
-                    .send({
-                      from: account,
-                      gas: 1000000,
-                      gasPrice: "5000000000",
-                    })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Tham gia đáu giá thành công !!!" + res);
-                      }
-                    });
-                } else {
-                  contract.methods
-                    .DauGia(maPhien, tienDauGia)
-                    .send({ from: account })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Tham gia đáu giá thành công !!!" + res);
-                      }
-                    });
-                }
-              }
-            );
-          }
-        });
-    }
-  });
+  )
+    .then((res) => {
+      if (res < 1000000) {
+        contractQuan.methods
+          .approve(
+            "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
+            BigNumber.from("" + tienDauGia * 1000000000000000000)
+          )
+          .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
+          .then((res) => {
+            if (res) {
+              ThamGiaDauGia(contract, account, maPhien, tienDauGia)
+                .then((res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .DauGia(maPhien, tienDauGia)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Tham gia đáu giá thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Tham gia đáu giá thất bại !!!" + err);
+                      });
+                  } else {
+                    contract.methods
+                      .DauGia(maPhien, tienDauGia)
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Tham gia đáu giá thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Tham gia đáu giá thất bại !!!" + err);
+                      });
+                  }
+                })
+                .catch((err) => {
+                  window.alert("Tham gia đáu giá thất bại !!!" + err);
+                });
+            }
+          });
+      } else {
+        contractQuan.methods
+          .approve(
+            "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
+            BigNumber.from("" + tienDauGia * 1000000000000000000)
+          )
+          .send({ from: account })
+          .then((res) => {
+            if (res) {
+              ThamGiaDauGia(contract, account, maPhien, tienDauGia)
+                .then((res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .DauGia(maPhien, tienDauGia)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Tham gia đáu giá thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Tham gia đáu giá thất bại !!!" + err);
+                      });
+                  } else {
+                    contract.methods
+                      .DauGia(maPhien, tienDauGia)
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Tham gia đáu giá thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Tham gia đáu giá thất bại !!!" + err);
+                      });
+                  }
+                })
+                .catch((err) => {
+                  window.alert("Tham gia đáu giá thất bại !!!" + err);
+                });
+            }
+          })
+          .catch((err) => {
+            window.alert("Tham gia đáu giá thất bại !!!" + err);
+          });
+      }
+    })
+    .catch((err) => {
+      window.alert("Tham gia đáu giá thất bại !!!" + err);
+    });
 };
 
 //
@@ -730,8 +817,11 @@ export const ThucHienKetThucPhienDauGia = (contract, account, maPhien) => {
           .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
           .then((res) => {
             if (res) {
-              window.alert("Hủy bán hàng thành công !!!" + res);
+              window.alert("Kết thúc đấu giá thành công !!!" + res);
             }
+          })
+          .catch((err) => {
+            window.alert("Kết thúc đấu giá thất bại !!!" + err);
           });
       } else {
         contract.methods
@@ -739,13 +829,16 @@ export const ThucHienKetThucPhienDauGia = (contract, account, maPhien) => {
           .send({ from: account })
           .then((res) => {
             if (res) {
-              window.alert("Hủy bán hàng thành công !!!" + res);
+              window.alert("Kết thúc đấu giá thành công !!!" + res);
             }
+          })
+          .catch((err) => {
+            window.alert("Kết thúc đấu giá thất bại !!!" + err);
           });
       }
     })
     .catch((err) => {
-      window.alert("Hủy bán hàng thất !!!" + err);
+      window.alert("Kết thúc đấu giá thất bại !!!" + err);
     });
 };
 
@@ -762,73 +855,111 @@ export const ThucHienMuaHang = (
     account,
     "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
     tienGui
-  ).then((res) => {
-    if (res < 1000000) {
-      contractQuan.methods
-        .approve(
-          "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
-          BigNumber.from("" + tienGui * 1000000000000000000)
-        )
-        .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-        .then((res) => {
-          if (res) {
-            MuaHang(contract, account, maHopDong, tienGui).then((res) => {
-              if (res < 1000000) {
-                contract.methods
-                  .MuaHang(maHopDong, tienGui)
-                  .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-                  .then((res) => {
-                    if (res) {
-                      window.alert("Mua hàng thành công !!!" + res);
-                    }
-                  });
-              } else {
-                contract.methods
-                  .MuaHang(maHopDong, tienGui)
-                  .send({ from: account })
-                  .then((res) => {
-                    if (res) {
-                      window.alert("Mua hàng thành công !!!" + res);
-                    }
-                  });
-              }
-            });
-          }
-        });
-    } else {
-      contractQuan.methods
-        .approve(
-          "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
-          BigNumber.from("" + tienGui * 1000000000000000000)
-        )
-        .send({ from: account })
-        .then((res) => {
-          if (res) {
-            MuaHang(contract, account, maHopDong, tienGui).then((res) => {
-              if (res < 1000000) {
-                contract.methods
-                  .MuaHang(maHopDong, tienGui)
-                  .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-                  .then((res) => {
-                    if (res) {
-                      window.alert("Mua hàng thành công !!!" + res);
-                    }
-                  });
-              } else {
-                contract.methods
-                  .MuaHang(maHopDong, tienGui)
-                  .send({ from: account })
-                  .then((res) => {
-                    if (res) {
-                      window.alert("Mua hàng thành công !!!" + res);
-                    }
-                  });
-              }
-            });
-          }
-        });
-    }
-  });
+  )
+    .then((res) => {
+      if (res < 1000000) {
+        contractQuan.methods
+          .approve(
+            "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
+            BigNumber.from("" + tienGui * 1000000000000000000)
+          )
+          .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
+          .then((res) => {
+            if (res) {
+              MuaHang(contract, account, maHopDong, tienGui)
+                .then((res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .MuaHang(maHopDong, tienGui)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thất bại !!!" + err);
+                      });
+                  } else {
+                    contract.methods
+                      .MuaHang(maHopDong, tienGui)
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thất bại !!!" + err);
+                      });
+                  }
+                })
+                .catch((err) => {
+                  window.alert("Mua hàng thất bại !!!" + err);
+                });
+            }
+          })
+          .catch((err) => {
+            window.alert("Mua hàng thất bại !!!" + err);
+          });
+      } else {
+        contractQuan.methods
+          .approve(
+            "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
+            BigNumber.from("" + tienGui * 1000000000000000000)
+          )
+          .send({ from: account })
+          .then((res) => {
+            if (res) {
+              MuaHang(contract, account, maHopDong, tienGui)
+                .then((res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .MuaHang(maHopDong, tienGui)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thất bại !!!" + err);
+                      });
+                  } else {
+                    contract.methods
+                      .MuaHang(maHopDong, tienGui)
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thất bại !!!" + err);
+                      });
+                  }
+                })
+                .catch((err) => {
+                  window.alert("Mua hàng thất bại !!!" + err);
+                });
+            }
+          })
+          .catch((err) => {
+            window.alert("Mua hàng thất bại !!!" + err);
+          });
+      }
+    })
+    .catch((err) => {
+      window.alert("Mua hàng thất bại !!!" + err);
+    });
 };
 
 //
@@ -844,83 +975,107 @@ export const ThucHienMuaLuonPhienDauGia = (
     account,
     "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
     tienMuaLuon
-  ).then((res) => {
-    if (res < 1000000) {
-      contractQuan.methods
-        .approve(
-          "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
-          BigNumber.from("" + tienMuaLuon * 1000000000000000000)
-        )
-        .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-        .then((res) => {
-          if (res) {
-            MuaLuonPhienDauGia(contract, account, maPhien, tienMuaLuon).then(
-              (res) => {
-                if (res < 1000000) {
-                  contract.methods
-                    .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
-                    .send({
-                      from: account,
-                      gas: 1000000,
-                      gasPrice: "5000000000",
-                    })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Mua hàng thành công !!!" + res);
-                      }
-                    });
-                } else {
-                  contract.methods
-                    .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
-                    .send({ from: account })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Mua hàng thành công !!!" + res);
-                      }
-                    });
+  )
+    .then((res) => {
+      if (res < 1000000) {
+        contractQuan.methods
+          .approve(
+            "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
+            BigNumber.from("" + tienMuaLuon * 1000000000000000000)
+          )
+          .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
+          .then((res) => {
+            if (res) {
+              MuaLuonPhienDauGia(contract, account, maPhien, tienMuaLuon).then(
+                (res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thành công !!!" + err);
+                      });
+                  } else {
+                    contract.methods
+                      .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thành công !!!" + err);
+                      });
+                  }
                 }
-              }
-            );
-          }
-        });
-    } else {
-      contractQuan.methods
-        .approve(
-          "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
-          BigNumber.from("" + tienMuaLuon * 1000000000000000000)
-        )
-        .send({ from: account })
-        .then((res) => {
-          if (res) {
-            MuaLuonPhienDauGia(contract, account, maPhien, tienMuaLuon).then(
-              (res) => {
-                if (res < 1000000) {
-                  contract.methods
-                    .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
-                    .send({
-                      from: account,
-                      gas: 1000000,
-                      gasPrice: "5000000000",
-                    })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Mua hàng thành công !!!" + res);
-                      }
-                    });
-                } else {
-                  contract.methods
-                    .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
-                    .send({ from: account })
-                    .then((res) => {
-                      if (res) {
-                        window.alert("Mua hàng thành công !!!" + res);
-                      }
-                    });
-                }
-              }
-            );
-          }
-        });
-    }
-  });
+              );
+            }
+          })
+          .catch((err) => {
+            window.alert("Mua hàng thành công !!!" + err);
+          });
+      } else {
+        contractQuan.methods
+          .approve(
+            "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
+            BigNumber.from("" + tienMuaLuon * 1000000000000000000)
+          )
+          .send({ from: account })
+          .then((res) => {
+            if (res) {
+              MuaLuonPhienDauGia(contract, account, maPhien, tienMuaLuon)
+                .then((res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thành công !!!" + err);
+                      });
+                  } else {
+                    contract.methods
+                      .MuaLuonPhienDauGia(maPhien, tienMuaLuon)
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Mua hàng thành công !!!" + res);
+                        }
+                      })
+                      .catch((err) => {
+                        window.alert("Mua hàng thành công !!!" + err);
+                      });
+                  }
+                })
+                .catch((err) => {
+                  window.alert("Mua hàng thành công !!!" + err);
+                });
+            }
+          })
+          .catch((err) => {
+            window.alert("Mua hàng thành công !!!" + err);
+          });
+      }
+    })
+    .catch((err) => {
+      window.alert("Mua hàng thành công !!!" + err);
+    });
 };
