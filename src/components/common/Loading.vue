@@ -1,13 +1,10 @@
 <template>
   <div class="loadingStyle">
     <v-progress-circular
-      :rotate="180"
-      :size="150"
-      :width="15"
-      :value="value"
-      color="orange"
-    >
-    </v-progress-circular>
+      :size="50"
+      color="primary"
+      indeterminate
+    ></v-progress-circular>
   </div>
 </template>
 

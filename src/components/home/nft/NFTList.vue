@@ -37,7 +37,11 @@
         </v-col>
       </v-row>
       <div class="text-center mt-8 mb-16">
-        <v-pagination v-model="page" :length="6"></v-pagination>
+        <v-pagination
+          v-model="page"
+          :length="lengthPagingNFT"
+          @input="paging"
+        ></v-pagination>
       </div>
     </div>
   </v-container>
@@ -52,16 +56,22 @@ export default {
   },
   data() {
     return {
-      page: 1,
+      page: 0,
     };
   },
   props: {
     nftList: Array,
     isLoad: Boolean,
+    getAllNFT: Function,
+    lengthPagingNFT: Number,
   },
   methods: {
     shortAddress(context) {
       return context ? context.slice(0, 10) + "..." : "";
+    },
+    paging() {
+      let pageIndex = (this.page - 1) * 8;
+      this.getAllNFT(pageIndex);
     },
   },
 };

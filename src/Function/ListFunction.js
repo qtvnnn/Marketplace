@@ -31,7 +31,7 @@ export const LayThongTinNFTTheoTokenId = async (contractNginNFT, tokenId) => {
   return {
     Metadata: metadata,
     TokenURI: tokenURL,
-  }
+  };
 };
 
 // mua ban home page **
@@ -120,7 +120,7 @@ export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             TokenId: danhSach.TokenId,
-            Length: DanhSachTokenURLVaTokenId.length
+            Length: DanhSachTokenId.length,
           };
           Data.push(dataMap);
         }
@@ -189,7 +189,7 @@ export const LayTatCaDanhSachNFTMuaBan = async (
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             HopDong: danhSach.HopDong,
-            Length: DanhSachTokenURLVaHopDong.length,
+            Length: DanhSachTatCaCacHopDong.length,
           };
           Data.push(dataMap);
         }

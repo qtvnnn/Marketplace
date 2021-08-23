@@ -6,22 +6,24 @@
         <v-img
           class="banner-img"
           max-height="600"
-          :src="auctionDetail.Metadata.metadata.uri"
+          :src="auctionDetail.Metadata.data.uri"
         ></v-img
       ></v-col>
       <v-col class="nft-detail-right" cols="12" md="8">
         <v-row>
           <v-col class="info-auction"
             ><p class="item-name">
-              {{ auctionDetail.Metadata.metadata.title }}
+              {{ auctionDetail.Metadata.data.title }}
             </p>
             <p class="owned">
               Owned by
-              <span class="owner-name">{{ auctionDetail.Phien.NguoiBan }}</span>
+              <span class="owner-name">{{
+                auctionDetail.PhienDauGia.NguoiBan
+              }}</span>
             </p>
             <p>Description:</p>
             <p class="description">
-              {{ auctionDetail.Metadata.metadata.desc }}
+              {{ auctionDetail.Metadata.data.desc }}
             </p>
             <!-- <p>
               Contract Address:
@@ -32,13 +34,15 @@
             <p>
               Token ID:
               <span style="color: #707a83">{{
-                auctionDetail.Phien.tokenId
+                auctionDetail.PhienDauGia.tokenId
               }}</span>
             </p>
             <p>Blockchain: <span style="color: #707a83"> Rinkeby</span></p>
             <p>
               Price:
-              <span class="price">{{ auctionDetail.Phien.GiaBanLuon }}</span>
+              <span class="price">{{
+                auctionDetail.PhienDauGia.GiaBanLuon
+              }}</span>
             </p>
             <v-btn @click="buyAuction">Buy</v-btn>
             <v-btn @click="endAuction">End Auction</v-btn></v-col
@@ -46,19 +50,23 @@
           <v-col>
             <h2 class="mt-15">Auction Rules</h2>
             <ul>
-              <li>Start: {{ auctionDetail.Phien.ThoiGianBatDau }}</li>
-              <li>End: {{ auctionDetail.Phien.ThoiGianKetThuc }}</li>
-              <li>Recently Price: {{ auctionDetail.Phien.GiaCuoiCung }}</li>
+              <li>Start: {{ auctionDetail.PhienDauGia.ThoiGianBatDau }}</li>
+              <li>End: {{ auctionDetail.PhienDauGia.ThoiGianKetThuc }}</li>
+              <li>
+                Recently Price: {{ auctionDetail.PhienDauGia.GiaCuoiCung }}
+              </li>
               <li>
                 Status:
                 {{
-                  auctionDetail.Phien.enTrangThaiDauGia == 0
+                  auctionDetail.PhienDauGia.enTrangThaiDauGia == 0
                     ? "Có thể mua luôn"
                     : "Đang đấu giá"
                 }}
               </li>
-              <li>Starting Price: {{ auctionDetail.Phien.GiaKhoiDiem }}</li>
-              <li>Step Price: {{ auctionDetail.Phien.BuocGia }}</li>
+              <li>
+                Starting Price: {{ auctionDetail.PhienDauGia.GiaKhoiDiem }}
+              </li>
+              <li>Step Price: {{ auctionDetail.PhienDauGia.BuocGia }}</li>
             </ul>
             <h3 class="mt-4 mb-2">Join the auction</h3>
             <v-form ref="AuctionForm" v-model="validAuction">
@@ -89,14 +97,15 @@ export default {
     return {
       isLoad: true,
       tokenId: this.$route.params.id,
+      maPhien: this.$route.query.maphien,
       priceAuction: "",
       auctionDetail: {},
       priceRules: [
         (v) => !!v || "Price is required",
         (v) =>
           v >=
-            parseInt(this.auctionDetail.Phien.GiaCuoiCung) +
-              parseInt(this.auctionDetail.Phien.BuocGia) ||
+            parseInt(this.auctionDetail.PhienDauGia.GiaCuoiCung) +
+              parseInt(this.auctionDetail.PhienDauGia.BuocGia) ||
           "Auction Price must be more than Recently Price add Step Price",
       ],
       validAuction: true,
@@ -115,17 +124,16 @@ export default {
   },
   methods: {
     layDanhSachPhienDauGia() {
-      ListFunction.LayTatCaDanhSachNFTDauGia(
+      console.log(this.maPhien);
+      console.log(this.tokenId);
+      ListFunction.LayThongTinNFTPhienTheoTokenId(
         this.contractMarketplace,
         this.contractNginNFT,
-        0
+        this.tokenId,
+        this.maPhien
       ).then((res) => {
-        res.forEach((item) => {
-          console.log(item);
-          if (item.Phien.tokenId == this.tokenId) {
-            this.auctionDetail = item;
-          }
-        });
+        console.log(res);
+        this.auctionDetail = res;
         this.isLoad = false;
       });
     },
@@ -136,7 +144,7 @@ export default {
           this.contractMarketplace,
           this.getContractQuan,
           this.account,
-          this.auctionDetail.Phien.MaPhien,
+          this.auctionDetail.PhienDauGia.MaPhien,
           this.priceAuction
         )
           .then((res) => {
@@ -151,7 +159,7 @@ export default {
       ListFunction.ThucHienKetThucPhienDauGia(
         this.contractMarketplace,
         this.account,
-        this.auctionDetail.Phien.MaPhien
+        this.auctionDetail.PhienDauGia.MaPhien
       )
         .then((res) => {
           console.log(res);
@@ -165,8 +173,8 @@ export default {
         this.contractMarketplace,
         this.getContractQuan,
         this.account,
-        this.auctionDetail.Phien.MaPhien,
-        this.auctionDetail.Phien.GiaBanLuon
+        this.auctionDetail.PhienDauGia.MaPhien,
+        this.auctionDetail.PhienDauGia.GiaBanLuon
       )
         .then((res) => {
           console.log(res);

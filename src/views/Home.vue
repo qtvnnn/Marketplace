@@ -2,8 +2,18 @@
   <v-app id="inspire">
     <Banner />
     <v-main>
-      <NFTList :nftList="nftList" :isLoad="isLoad" />
-      <AuctionList :auctionList="auctionList" :isLoad="isLoad" />
+      <NFTList
+        :nftList="nftList"
+        :isLoad="isLoad"
+        :getAllNFT="LayDanhSachHopDongMuaBan"
+        :lengthPagingNFT="lengthPagingNFT"
+      />
+      <AuctionList
+        :auctionList="auctionList"
+        :isLoad="isLoad"
+        :getAllAuction="layDanhSachPhienDauGia"
+        :lengthPagingAuction="lengthPagingAuction"
+      />
     </v-main>
   </v-app>
 </template>
@@ -20,7 +30,9 @@ export default {
     return {
       isLoad: true,
       nftList: [],
+      lengthPagingNFT: 0,
       auctionList: [],
+      lengthPagingAuction: 0,
     };
   },
   components: {
@@ -38,31 +50,31 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.LayDanhSachHopDongMuaBan(), this.layDanhSachPhienDauGia();
+      this.LayDanhSachHopDongMuaBan(0), this.layDanhSachPhienDauGia(0);
     }, 1000);
   },
   methods: {
-    LayDanhSachHopDongMuaBan() {
+    LayDanhSachHopDongMuaBan(pageIndex) {
       ListFunction.LayTatCaDanhSachNFTMuaBan(
         this.contractMarketplace,
         this.contractNginNFT,
-        0
+        pageIndex
       ).then((res) => {
-        console.log(res);
+        console.log(res, "nft");
+        this.lengthPagingNFT = Math.ceil(res[0].Length / 8);
         this.nftList = res;
-        // this.nftList = res.filter((item) => item.HopDong.TrangThaiHopDong == 0);
         this.isLoad = false;
-        console.log(this.nftList);
       });
     },
-    layDanhSachPhienDauGia() {
+    layDanhSachPhienDauGia(pageIndex) {
       ListFunction.LayTatCaDanhSachNFTDauGia(
         this.contractMarketplace,
         this.contractNginNFT,
-        0
+        pageIndex
       ).then((res) => {
-        this.auctionList = res;
         console.log(res, "auction");
+        this.auctionList = res;
+        this.lengthPagingAuction = Math.ceil(res[0].Length / 8);
       });
     },
   },

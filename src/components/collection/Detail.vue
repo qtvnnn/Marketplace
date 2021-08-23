@@ -3,20 +3,24 @@
     <Loading v-if="isLoad" />
     <v-row v-else>
       <v-col cols="12" md="5">
-        <v-img class="banner-img" max-height="600" :src="itemDetail.uri"></v-img
+        <v-img
+          class="banner-img"
+          max-height="600"
+          :src="itemDetail.Metadata.data.uri"
+        ></v-img
       ></v-col>
       <v-col class="nft-detail-right" cols="12" md="7">
-        <p class="item-name">{{ itemDetail.title }}</p>
+        <p class="item-name">{{ itemDetail.Metadata.data.title }}</p>
         <p class="owned">
           Owned by <span class="owner-name">{{ account }}</span>
         </p>
         <p>Description:</p>
         <p class="description">
-          {{ itemDetail.desc }}
+          {{ itemDetail.Metadata.data.desc }}
         </p>
         <p>
           TokenURI:
-          <span style="color: #1868b7"></span>
+          <span style="color: #1868b7">{{ itemDetail.TokenURI }}</span>
         </p>
         <p>
           Token ID:
@@ -176,7 +180,7 @@ export default {
         this.tokenId
       ).then((res) => {
         console.log(res);
-        this.itemDetail = res.data;
+        this.itemDetail = res;
         this.isLoad = false;
       });
     },

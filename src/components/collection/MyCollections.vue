@@ -37,7 +37,7 @@
           <div class="text-center mt-8 mb-16">
             <v-pagination
               v-model="page"
-              :length="6"
+              :length="lengthPaging"
               @input="paging"
             ></v-pagination>
           </div>
@@ -56,7 +56,8 @@ export default {
   components: { Loading },
   data: () => ({
     isLoad: true,
-    page: 1,
+    page: 0,
+    lengthPaging: 0,
     listCollection: [],
   }),
   computed: {
@@ -73,7 +74,7 @@ export default {
     LayDanhSachNFTSoHuu(page) {
       ListFunction.LayDanhSachNFTSoHuu(this.contractNginNFT, this.account, page)
         .then((res) => {
-          console.log(res);
+          this.lengthPaging = Math.ceil(res[0].Length / 8);
           this.listCollection = res;
           this.isLoad = false;
         })
@@ -82,7 +83,6 @@ export default {
         });
     },
     paging() {
-      console.log(this.page);
       let pageIndex = (this.page - 1) * 8;
       this.LayDanhSachNFTSoHuu(pageIndex);
     },

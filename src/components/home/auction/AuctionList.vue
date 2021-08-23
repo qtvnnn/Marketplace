@@ -6,7 +6,7 @@
       <v-col v-for="(item, index) in auctionList" :key="index" cols="3">
         <router-link
           style="text-decoration: none; color: inherit"
-          :to="`/auction/${item.Phien.tokenId}`"
+          :to="`/auction/${item.Phien.tokenId}?maphien=${item.Phien.MaPhien}`"
         >
           <v-card height="400" align="center">
             <div class="img-contain" style="height: 320px">
@@ -36,7 +36,11 @@
       </v-col>
     </v-row>
     <div v-if="auctionList.length > 0" class="text-center mt-8">
-      <v-pagination v-model="page" :length="6"></v-pagination>
+      <v-pagination
+        v-model="page"
+        :length="lengthPagingAuction"
+        @input="paging"
+      ></v-pagination>
     </div>
   </v-container>
 </template>
@@ -51,15 +55,21 @@ export default {
   props: {
     auctionList: Array,
     isLoad: Boolean,
+    getAllAuction: Function,
+    lengthPagingAuction: Number,
   },
   data() {
     return {
-      page: 1,
+      page: 0,
     };
   },
   methods: {
     shortAddress(context) {
       return context ? context.slice(0, 10) + "..." : "";
+    },
+    paging() {
+      let pageIndex = (this.page - 1) * 8;
+      this.getAllAuction(pageIndex);
     },
   },
 };
