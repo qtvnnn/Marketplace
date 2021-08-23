@@ -13,15 +13,6 @@
         >Create a NFT
       </v-btn></router-link
     >
-
-    <router-link
-      style="text-decoration: none; color: inherit"
-      to="/create-item-collection"
-    >
-      <v-btn outlined color="indigo" height="50" elevation="5"
-        >Create a auction
-      </v-btn></router-link
-    >
   </v-col>
 </template>
 

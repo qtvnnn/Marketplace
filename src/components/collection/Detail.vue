@@ -217,8 +217,8 @@ export default {
             this.startPrice,
             100,
             this.stepPrice,
-            this.timeStart,
-            this.timeEnd,
+            this.timeStart/1000,
+            this.timeEnd/1000,
             this.account
           ).then((res) => {
             console.log(res);

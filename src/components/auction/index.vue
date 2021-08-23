@@ -65,7 +65,7 @@
                 solo
                 :rules="priceRules"
                 required
-                suffix="NGINNFT"
+                suffix="NGIN"
                 v-model="priceAuction"
               ></v-text-field>
               <v-btn class="btn-auction" @click="joinAuction">Auction</v-btn>

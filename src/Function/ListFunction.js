@@ -1,6 +1,7 @@
 import {
   createNewNFT,
   getListNFTByArrTokenURL,
+  getNFTByTokenURL,
 } from "./../Config_API/Api_Caller";
 import {
   setApprove,
@@ -19,6 +20,34 @@ import { TaoPhienDauGia1 } from "../Writer_Contract/functionWriteMarketplace";
 const { ethers } = require("ethers");
 const BigNumber = ethers.BigNumber;
 
+
+export const LayThongTinNFTTheoTokenId = async (contractNginNFT,tokenId)=>{
+  const tokenURI = await contractNginNFT.methods.tokenURI(tokenId).call();
+  const tokenURL = tokenURI.substring(tokenURI.lastIndexOf("/")+1,tokenURI.length);
+  return getNFTByTokenURL(tokenURL);
+}
+
+export const LayThongTinNFTMuaBanTheoTokenId = async (contract,contractNginNFT,tokenId,maHopDong)=>{
+  const tokenURI = await contractNginNFT.methods.tokenURI(tokenId).call();
+  const tokenURL = tokenURI.substring(tokenURI.lastIndexOf("/")+1,tokenURI.length);
+  const thongTin = await getNFTByTokenURL(tokenURL);
+  const thongTinMuaBan = await contract.methods.DanhSachHopDongMuaBan(maHopDong).call();
+  return {
+    Metadata: thongTin,
+    HopDong: thongTinMuaBan,
+  }
+}
+
+export const LayThongTinNFTPhienTheoTokenId = async (contract,contractNginNFT,tokenId,maPhien)=>{
+  const tokenURI = await contractNginNFT.methods.tokenURI(tokenId).call();
+  const tokenURL = tokenURI.substring(tokenURI.lastIndexOf("/")+1,tokenURI.length);
+  const thongTin = await getNFTByTokenURL(tokenURL);
+  const thongTinPhien = await contract.methods.DanhSachTatCaCacPhienDauGia(maPhien).call();
+  return {
+    Metadata: thongTin,
+    PhienDauGia: thongTinPhien,
+  }
+}
 //collection
 export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
   // Lay danh sach tokenId theo nguoi so huu

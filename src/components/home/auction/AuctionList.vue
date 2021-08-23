@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <span class="title-auction-list">Explore the Auction marketplace</span>
+    <span class="title-auction-list">Explore the auction marketplace</span>
     <Loading v-if="isLoad" />
     <v-row v-else class="mt-6">
       <v-col v-for="(item, index) in auctionList" :key="index" cols="3">
