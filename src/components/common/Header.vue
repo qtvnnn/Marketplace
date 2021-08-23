@@ -9,24 +9,18 @@
           >Marketplace</router-link
         >
       </span>
-
-      <v-responsive max-width="400">
-        <v-text-field
-          label="Search items, collections, and accounts"
-          prepend-icon="mdi-magnify"
-          dense
-          flat
-          hide-details
-          rounded
-          solo-inverted
-        ></v-text-field>
-      </v-responsive>
-
+      
+      
       <v-spacer></v-spacer>
+      <v-btn class="mr-4 menu-item-account" rounded>
+        <router-link  style="text-decoration: none; color: inherit" to="/"
+          >Home</router-link
+        >
+      </v-btn>
 
       <v-menu open-on-hover bottom offset-y>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn v-bind="attrs" v-on="on" rounded> My account </v-btn>
+          <v-btn  v-bind="attrs" v-on="on" rounded> My account </v-btn>
         </template>
 
         <v-list>
