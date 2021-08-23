@@ -27,7 +27,11 @@ export const LayThongTinNFTTheoTokenId = async (contractNginNFT, tokenId) => {
     tokenURI.lastIndexOf("/") + 1,
     tokenURI.length
   );
-  return getNFTByTokenURL(tokenURL);
+  const metadata = await getNFTByTokenURL(tokenURL);
+  return {
+    Metadata: metadata,
+    TokenURI: tokenURL,
+  }
 };
 
 // mua ban home page **
@@ -73,6 +77,7 @@ export const LayThongTinNFTPhienTheoTokenId = async (
     PhienDauGia: thongTinPhien,
   };
 };
+
 //collection
 export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
   // Lay danh sach tokenId theo nguoi so huu
@@ -115,6 +120,7 @@ export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             TokenId: danhSach.TokenId,
+            Length: DanhSachTokenURLVaTokenId.length
           };
           Data.push(dataMap);
         }
@@ -183,6 +189,7 @@ export const LayTatCaDanhSachNFTMuaBan = async (
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             HopDong: danhSach.HopDong,
+            Length: DanhSachTokenURLVaHopDong.length,
           };
           Data.push(dataMap);
         }
@@ -253,6 +260,7 @@ export const LayTatCaDanhSachNFTMuaBanSoHuu = async (
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             HopDong: danhSach.HopDong,
+            Length: DanhSachTokenURLVaHopDong.length,
           };
           Data.push(dataMap);
         }
@@ -314,6 +322,7 @@ export const LayTatCaDanhSachNFTDauGia = async (
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             Phien: danhSach.Phien,
+            Length: DanhSachTokenURLVaPhien.length,
           };
           Data.push(dataMap);
         }
@@ -380,6 +389,7 @@ export const LayTatCaDanhSachNFTDauGiaSoHuu = async (
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             Phien: danhSach.Phien,
+            Length: DanhSachTokenURLVaPhien.length,
           };
           Data.push(dataMap);
         }
@@ -446,6 +456,7 @@ export const LayTatCaDanhSachNFTDauGiaThamGia = async (
           const dataMap = {
             Metadata: listMetatdata.data.data[i],
             Phien: danhSach.Phien,
+            Length: DanhSachTokenURLVaPhien.length,
           };
           Data.push(dataMap);
         }
