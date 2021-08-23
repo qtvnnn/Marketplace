@@ -168,7 +168,7 @@ export default {
       ListFunction.LayDanhSachNFTSoHuu(
         this.contractNginNFT,
         this.account,
-        0
+        16
       ).then((res) => {
         res.forEach((item) => {
           if (item.TokenId == this.tokenId) {
