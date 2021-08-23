@@ -6,18 +6,18 @@
         <v-img
           class="banner-img"
           max-height="600"
-          :src="nftDetail.Metadata.metadata.uri"
+          :src="nftDetail.Metadata.data.uri"
         ></v-img
       ></v-col>
       <v-col class="nft-detail-right" cols="12" md="7">
-        <p class="item-name">{{ nftDetail.Metadata.metadata.title }}</p>
+        <p class="item-name">{{ nftDetail.Metadata.data.title }}</p>
         <p class="owned">
           Owned by
           <span class="owner-name">{{ nftDetail.HopDong.NguoiBan }}</span>
         </p>
         <p>Description:</p>
         <p class="description">
-          {{ nftDetail.Metadata.metadata.desc }}
+          {{ nftDetail.Metadata.data.desc }}
         </p>
         <!-- <p>
           Contract Address:
@@ -34,7 +34,7 @@
           Price: <span class="price">{{ nftDetail.HopDong.TienHang }}</span>
         </p>
         <v-btn v-if="nftDetail.HopDong.NguoiBan !== account" @click="makeOffer"
-          >Make Offer</v-btn
+          >Buy</v-btn
         >
         <v-btn v-else @click="cancelOffer">Cancel</v-btn>
       </v-col>
@@ -53,6 +53,7 @@ export default {
     return {
       isLoad: true,
       tokenId: this.$route.params.id,
+      maHopDong: this.$route.query.mahopdong,
       nftDetail: {},
     };
   },
@@ -69,17 +70,15 @@ export default {
   },
   methods: {
     LayTatCaDanhSachNFTMuaBan() {
-      ListFunction.LayTatCaDanhSachNFTMuaBan(
+      console.log(this.maHopDong);
+      ListFunction.LayThongTinNFTMuaBanTheoTokenId(
         this.contractMarketplace,
         this.contractNginNFT,
-        0
+        this.tokenId,
+        this.maHopDong
       ).then((res) => {
-        res.forEach((item) => {
-          console.log(item);
-          if (item.HopDong.tokenId == this.tokenId) {
-            this.nftDetail = item;
-          }
-        });
+        console.log(res);
+        this.nftDetail = res;
         this.isLoad = false;
       });
     },

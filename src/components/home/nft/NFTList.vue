@@ -7,8 +7,7 @@
         <v-col v-for="(item, i) in nftList" :key="i" cols="3">
           <router-link
             style="text-decoration: none; color: inherit"
-            :to="`/nft/${item.HopDong.tokenId}`"
-            target="_blank"
+            :to="`/nft/${item.HopDong.tokenId}?mahopdong=${item.HopDong.MaHopDong}`"
           >
             <v-card height="400" align="center">
               <div class="img-contain" style="height: 320px">

@@ -20,34 +20,59 @@ import { TaoPhienDauGia1 } from "../Writer_Contract/functionWriteMarketplace";
 const { ethers } = require("ethers");
 const BigNumber = ethers.BigNumber;
 
-
-export const LayThongTinNFTTheoTokenId = async (contractNginNFT,tokenId)=>{
+// collection **
+export const LayThongTinNFTTheoTokenId = async (contractNginNFT, tokenId) => {
   const tokenURI = await contractNginNFT.methods.tokenURI(tokenId).call();
-  const tokenURL = tokenURI.substring(tokenURI.lastIndexOf("/")+1,tokenURI.length);
+  const tokenURL = tokenURI.substring(
+    tokenURI.lastIndexOf("/") + 1,
+    tokenURI.length
+  );
   return getNFTByTokenURL(tokenURL);
-}
+};
 
-export const LayThongTinNFTMuaBanTheoTokenId = async (contract,contractNginNFT,tokenId,maHopDong)=>{
+// mua ban home page **
+export const LayThongTinNFTMuaBanTheoTokenId = async (
+  contract,
+  contractNginNFT,
+  tokenId,
+  maHopDong
+) => {
   const tokenURI = await contractNginNFT.methods.tokenURI(tokenId).call();
-  const tokenURL = tokenURI.substring(tokenURI.lastIndexOf("/")+1,tokenURI.length);
+  const tokenURL = tokenURI.substring(
+    tokenURI.lastIndexOf("/") + 1,
+    tokenURI.length
+  );
   const thongTin = await getNFTByTokenURL(tokenURL);
-  const thongTinMuaBan = await contract.methods.DanhSachHopDongMuaBan(maHopDong).call();
+  const thongTinMuaBan = await contract.methods
+    .DanhSachHopDongMuaBan(maHopDong)
+    .call();
   return {
     Metadata: thongTin,
     HopDong: thongTinMuaBan,
-  }
-}
+  };
+};
 
-export const LayThongTinNFTPhienTheoTokenId = async (contract,contractNginNFT,tokenId,maPhien)=>{
+// dau gia home page **
+export const LayThongTinNFTPhienTheoTokenId = async (
+  contract,
+  contractNginNFT,
+  tokenId,
+  maPhien
+) => {
   const tokenURI = await contractNginNFT.methods.tokenURI(tokenId).call();
-  const tokenURL = tokenURI.substring(tokenURI.lastIndexOf("/")+1,tokenURI.length);
+  const tokenURL = tokenURI.substring(
+    tokenURI.lastIndexOf("/") + 1,
+    tokenURI.length
+  );
   const thongTin = await getNFTByTokenURL(tokenURL);
-  const thongTinPhien = await contract.methods.DanhSachTatCaCacPhienDauGia(maPhien).call();
+  const thongTinPhien = await contract.methods
+    .DanhSachTatCaCacPhienDauGia(maPhien)
+    .call();
   return {
     Metadata: thongTin,
     PhienDauGia: thongTinPhien,
-  }
-}
+  };
+};
 //collection
 export const LayDanhSachNFTSoHuu = async (contractNginNFT, adOwner, page) => {
   // Lay danh sach tokenId theo nguoi so huu
@@ -169,7 +194,7 @@ export const LayTatCaDanhSachNFTMuaBan = async (
   }
 };
 
-// nft mua ban profile
+// nft mua ban profile **
 export const LayTatCaDanhSachNFTMuaBanSoHuu = async (
   contract,
   contractNginNFT,
@@ -300,7 +325,7 @@ export const LayTatCaDanhSachNFTDauGia = async (
   }
 };
 
-// nft dau gia profile
+// nft dau gia profile **
 export const LayTatCaDanhSachNFTDauGiaSoHuu = async (
   contract,
   contractNginNFT,
@@ -1080,7 +1105,7 @@ export const ThucHienMuaHang = (
     });
 };
 
-//
+// mua luon dau
 export const ThucHienMuaLuonPhienDauGia = (
   contract,
   contractQuan,

@@ -40,7 +40,8 @@
               Price:
               <span class="price">{{ auctionDetail.Phien.GiaBanLuon }}</span>
             </p>
-            <v-btn>Make Offer</v-btn></v-col
+            <v-btn @click="buyAuction">Buy</v-btn>
+            <v-btn @click="endAuction">End Auction</v-btn></v-col
           >
           <v-col>
             <h2 class="mt-15">Auction Rules</h2>
@@ -145,6 +146,34 @@ export default {
             console.log(err, "fail");
           });
       }
+    },
+    endAuction() {
+      ListFunction.ThucHienKetThucPhienDauGia(
+        this.contractMarketplace,
+        this.account,
+        this.auctionDetail.Phien.MaPhien
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    buyAuction() {
+      ListFunction.ThucHienMuaLuonPhienDauGia(
+        this.contractMarketplace,
+        this.getContractQuan,
+        this.account,
+        this.auctionDetail.Phien.MaPhien,
+        this.auctionDetail.Phien.GiaBanLuon
+      )
+        .then((res) => {
+          console.log(res);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   },
 };

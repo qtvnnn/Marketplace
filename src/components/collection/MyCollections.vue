@@ -10,7 +10,6 @@
               name: 'ItemCollectionDetail',
               params: { id: item.TokenId },
             }"
-            target="_blank"
           >
             <v-card height="400" align="center">
               <div class="img-contain" style="height: 320px">

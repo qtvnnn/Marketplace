@@ -3,28 +3,24 @@
     <Loading v-if="isLoad" />
     <v-row v-else>
       <v-col cols="12" md="5">
-        <v-img
-          class="banner-img"
-          max-height="600"
-          :src="itemDetail.Metadata.metadata.uri"
-        ></v-img
+        <v-img class="banner-img" max-height="600" :src="itemDetail.uri"></v-img
       ></v-col>
       <v-col class="nft-detail-right" cols="12" md="7">
-        <p class="item-name">{{ itemDetail.Metadata.metadata.title }}</p>
+        <p class="item-name">{{ itemDetail.title }}</p>
         <p class="owned">
           Owned by <span class="owner-name">{{ account }}</span>
         </p>
         <p>Description:</p>
         <p class="description">
-          {{ itemDetail.Metadata.metadata.desc }}
+          {{ itemDetail.desc }}
         </p>
         <p>
           TokenURI:
-          <span style="color: #1868b7">{{ itemDetail.Metadata.tokenURI }}</span>
+          <span style="color: #1868b7"></span>
         </p>
         <p>
           Token ID:
-          <span style="color: #707a83">{{ itemDetail.TokenId }}</span>
+          <span style="color: #707a83">{{ tokenId }}</span>
         </p>
         <p>Blockchain: <span style="color: #707a83"> Rinkeby</span></p>
 
@@ -106,6 +102,19 @@
 
                   <v-row>
                     <v-col>
+                      <v-text-field
+                        v-model="priceRightNow"
+                        :rules="priceRules"
+                        :counter="15"
+                        label="Price:"
+                        required
+                        type="number"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+
+                  <v-row>
+                    <v-col>
                       <v-btn @click="auctionIem">Auction</v-btn>
                     </v-col>
                   </v-row>
@@ -134,6 +143,7 @@ export default {
       validSell: true,
       validAuction: true,
       price: "",
+      priceRightNow: "",
       startPrice: "",
       stepPrice: "",
       timeStart: "",
@@ -146,11 +156,7 @@ export default {
       ],
       listCollection: [],
       tokenId: this.$route.params.id,
-      itemDetail: {
-        Metadata: {
-          metadata: {},
-        },
-      },
+      itemDetail: {},
     };
   },
   computed: {
@@ -165,20 +171,12 @@ export default {
   },
   methods: {
     LayDanhSachNFTSoHuu() {
-      ListFunction.LayDanhSachNFTSoHuu(
+      ListFunction.LayThongTinNFTTheoTokenId(
         this.contractNginNFT,
-        this.account,
-        16
+        this.tokenId
       ).then((res) => {
-        res.forEach((item) => {
-          if (item.TokenId == this.tokenId) {
-            // console.log(item);
-            this.itemDetail = item;
-          }
-        });
-        // console.log(res);
-        // console.log(this.tokenId);
-        this.listCollection = res;
+        console.log(res);
+        this.itemDetail = res.data;
         this.isLoad = false;
       });
     },
@@ -207,18 +205,18 @@ export default {
           // console.log(this.stepPrice, "2");
           // console.log(this.timeStart, "3");
           // console.log(this.timeEnd, "4");
-          console.log(this.contractNginNFT, "5");
-          console.log(this.account, "6");
+          // console.log(this.contractNginNFT, "5");
+          // console.log(this.timeStart, "6");
 
           ListFunction.TaoPhienThucHienDauGia(
             this.contractMarketplace,
             this.contractNginNFT,
             this.tokenId,
             this.startPrice,
-            100,
+            this.priceRightNow,
             this.stepPrice,
-            this.timeStart/1000,
-            this.timeEnd/1000,
+            parseInt(this.timeStart) / 1000,
+            parseInt(this.timeEnd) / 1000,
             this.account
           ).then((res) => {
             console.log(res);
