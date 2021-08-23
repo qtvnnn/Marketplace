@@ -7,7 +7,6 @@
       :value="value"
       color="orange"
     >
-      {{ value }} %
     </v-progress-circular>
   </div>
 </template>
@@ -26,8 +25,8 @@ export default {
       if (this.value === 100) {
         return (this.value = 0);
       }
-      this.value += 10;
-    }, 1000);
+      this.value += 1;
+    }, 100);
   },
 };
 </script>

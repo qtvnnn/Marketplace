@@ -42,7 +42,7 @@
           </v-row>
           <v-row>
             <v-col>
-              <v-btn @click="createNFT1">Create</v-btn>
+              <v-btn @click="createItem">Create</v-btn>
             </v-col>
           </v-row>
         </v-container>
@@ -75,18 +75,21 @@ export default {
       "https://lh3.googleusercontent.com/06DG0Jq_0OUOp0cqfaQh2KyywUMNeeQBrrim1JtNcs6jf0t1e6fuEmO8EOA-eHiR7sHdgqvjjh7wnxgMzeoIIea6lnXTmUx6fEn7FQ=s550",
   }),
   methods: {
-    createNFT1() {
+    async createNFT1() {
       if (this.$refs.form.validate()) {
         const formData = new FormData();
         formData.append("fileNFT", this.nft.fileNFT);
         formData.append("title", this.nft.title);
         formData.append("desc", this.nft.desc);
-        ListFunction.TaoNFT(this.contractNginNFT, formData, this.account);
+        await ListFunction.TaoNFT(this.contractNginNFT, formData, this.account);
         console.log(this.nft.fileNFT);
         console.log(formData);
-
         // this.$router.push("/collections");
       }
+    },
+    async createItem() {
+      await this.createNFT1();
+      console.log("waited");
     },
     selectFile(file) {
       this.nft.fileNFT = file;

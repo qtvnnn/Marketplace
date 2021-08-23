@@ -53,14 +53,7 @@ export default {
     return {
       isLoad: true,
       tokenId: this.$route.params.id,
-      nftDetail: {
-        HopDong: {},
-        Metadata: {
-          metadata: {
-            uri: "",
-          },
-        },
-      },
+      nftDetail: {},
     };
   },
   computed: {
@@ -79,7 +72,7 @@ export default {
       ListFunction.LayTatCaDanhSachNFTMuaBan(
         this.contractMarketplace,
         this.contractNginNFT,
-        8
+        0
       ).then((res) => {
         res.forEach((item) => {
           console.log(item);

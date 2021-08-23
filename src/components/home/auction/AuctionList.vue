@@ -1,29 +1,33 @@
 <template>
   <v-container>
     <span class="title-auction-list">Explore the Auction marketplace</span>
-    <v-row class="mt-6">
-      <v-col v-for="n in 8" :key="n" cols="3">
+    <Loading v-if="isLoad" />
+    <v-row v-else class="mt-6">
+      <v-col v-for="(item, index) in auctionList" :key="index" cols="3">
         <router-link
           style="text-decoration: none; color: inherit"
-          to="/auction/1"
+          :to="`/auction/${item.Phien.tokenId}`"
           target="_blank"
         >
           <v-card height="400" align="center">
             <div class="img-contain" style="height: 320px">
-              <img
-                class="item-img"
-                src="https://picsum.photos/500/400?random"
-              />
+              <img class="item-img" :src="item.Metadata.metadata.uri" />
             </div>
             <v-container>
               <v-row>
                 <v-col class="text-left"
-                  ><span class="item-name">Itemname</span><br />
-                  <span class="item-owner">Owner</span></v-col
+                  ><span class="item-name">{{
+                    item.Metadata.metadata.title
+                  }}</span
+                  ><br />
+                  <span class="item-owner">{{
+                    shortAddress(item.Phien.NguoiBan)
+                  }}</span></v-col
                 >
                 <v-col class="text-right"
-                  ><span class="txt-price">Price</span><br /><span class="price"
-                    >$10</span
+                  ><span class="txt-price">Start Price</span><br /><span
+                    class="price"
+                    >{{ item.Phien.GiaKhoiDiem }}</span
                   ></v-col
                 >
               </v-row>
@@ -32,24 +36,33 @@
         </router-link>
       </v-col>
     </v-row>
-    <div class="text-center mt-8">
+    <div v-if="auctionList.length > 0" class="text-center mt-8">
       <v-pagination v-model="page" :length="6"></v-pagination>
     </div>
   </v-container>
 </template>
 
 <script>
+import Loading from "../../common/Loading.vue";
 export default {
   name: "AuctionList",
+  components: {
+    Loading,
+  },
   props: {
     auctionList: Array,
+    isLoad: Boolean,
   },
   data() {
     return {
       page: 1,
     };
   },
-  components: {},
+  methods: {
+    shortAddress(context) {
+      return context ? context.slice(0, 10) + "..." : "";
+    },
+  },
 };
 </script>
 

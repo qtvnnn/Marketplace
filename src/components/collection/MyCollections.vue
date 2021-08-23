@@ -3,7 +3,7 @@
     <Loading v-if="isLoad" />
     <div v-else>
       <v-row>
-        <v-col v-for="(item, index) in listCollection" :key="index" cols="4">
+        <v-col v-for="(item, index) in listCollection" :key="index" cols="3">
           <router-link
             style="text-decoration: none; color: inherit"
             :to="{
@@ -36,7 +36,11 @@
       <v-row>
         <v-col>
           <div class="text-center mt-8 mb-16">
-            <v-pagination v-model="page" :length="6"></v-pagination>
+            <v-pagination
+              v-model="page"
+              :length="6"
+              @input="paging"
+            ></v-pagination>
           </div>
         </v-col>
       </v-row>
@@ -63,20 +67,25 @@ export default {
   },
   mounted() {
     setTimeout(() => {
-      this.LayDanhSachNFTSoHuu();
+      this.LayDanhSachNFTSoHuu(0);
     }, 1000);
   },
   methods: {
-    LayDanhSachNFTSoHuu() {
-      ListFunction.LayDanhSachNFTSoHuu(
-        this.contractNginNFT,
-        this.account,
-        0
-      ).then((res) => {
-        console.log(res);
-        this.listCollection = res;
-        this.isLoad = false;
-      });
+    LayDanhSachNFTSoHuu(page) {
+      ListFunction.LayDanhSachNFTSoHuu(this.contractNginNFT, this.account, page)
+        .then((res) => {
+          console.log(res);
+          this.listCollection = res;
+          this.isLoad = false;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
+    paging() {
+      console.log(this.page);
+      let pageIndex = (this.page - 1) * 8;
+      this.LayDanhSachNFTSoHuu(pageIndex);
     },
     shortAddress(context) {
       return context

@@ -172,12 +172,12 @@ export default {
       ).then((res) => {
         res.forEach((item) => {
           if (item.TokenId == this.tokenId) {
-            console.log(item);
+            // console.log(item);
             this.itemDetail = item;
           }
         });
-        console.log(res);
-        console.log(this.tokenId);
+        // console.log(res);
+        // console.log(this.tokenId);
         this.listCollection = res;
         this.isLoad = false;
       });
@@ -202,7 +202,27 @@ export default {
           this.timeEndValid = "The End Time must be after Start Time";
         } else {
           this.timeEndValid = "";
-          // code here
+          // code here\
+          // console.log(this.startPrice, "1");
+          // console.log(this.stepPrice, "2");
+          // console.log(this.timeStart, "3");
+          // console.log(this.timeEnd, "4");
+          console.log(this.contractNginNFT, "5");
+          console.log(this.account, "6");
+
+          ListFunction.TaoPhienThucHienDauGia(
+            this.contractMarketplace,
+            this.contractNginNFT,
+            this.tokenId,
+            this.startPrice,
+            100,
+            this.stepPrice,
+            this.timeStart,
+            this.timeEnd,
+            this.account
+          ).then((res) => {
+            console.log(res);
+          });
         }
       } else {
         this.validateStartTime();

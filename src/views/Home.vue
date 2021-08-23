@@ -3,7 +3,7 @@
     <Banner />
     <v-main>
       <NFTList :nftList="nftList" :isLoad="isLoad" />
-      <AuctionList :auctionList="auctionList" />
+      <AuctionList :auctionList="auctionList" :isLoad="isLoad" />
     </v-main>
   </v-app>
 </template>
@@ -62,6 +62,7 @@ export default {
         0
       ).then((res) => {
         this.auctionList = res;
+        console.log(res, "auction");
       });
     },
   },

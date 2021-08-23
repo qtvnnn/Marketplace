@@ -590,21 +590,16 @@ export const TaoPhienThucHienDauGia = (
     "0x5Eda6E2a4a023c9D69Da477A6425550B2794B057",
     tokenId
   )
-    .then(() => {
-      TaoPhienDauGia1(
-        contract,
-        account,
-        tokenId,
-        giaKhoiDiem,
-        giaBanLuon,
-        buocGia,
-        thoiGianBatDau,
-        thoiGianKetThuc
-      )
-        .then((res) => {
-          if (res < 1000000) {
-            contract.methods
-              .TaoPhienDauGia(
+    .then((res) => {
+      if (res < 1000000) {
+        contractNginNFT.methods
+          .approve("0x5Eda6E2a4a023c9D69Da477A6425550B2794B057", tokenId)
+          .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
+          .then((res) => {
+            if (res) {
+              TaoPhienDauGia1(
+                contract,
+                account,
                 tokenId,
                 giaKhoiDiem,
                 giaBanLuon,
@@ -612,19 +607,72 @@ export const TaoPhienThucHienDauGia = (
                 thoiGianBatDau,
                 thoiGianKetThuc
               )
-              .send({ from: account, gas: 1000000, gasPrice: "5000000000" })
-              .then((res) => {
-                if (res) {
-                  window.alert("Create NFT aution success !!!");
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-                window.alert("Create NFT aution false !!!");
-              });
-          } else {
-            contract.methods
-              .TaoPhienDauGia(
+                .then((res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .TaoPhienDauGia(
+                        tokenId,
+                        giaKhoiDiem,
+                        giaBanLuon,
+                        buocGia,
+                        thoiGianBatDau,
+                        thoiGianKetThuc
+                      )
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Create NFT aution success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT aution false !!!");
+                      });
+                  } else {
+                    contract.methods
+                      .TaoPhienDauGia(
+                        tokenId,
+                        giaKhoiDiem,
+                        giaBanLuon,
+                        buocGia,
+                        thoiGianBatDau,
+                        thoiGianKetThuc
+                      )
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Create NFT aution success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT aution false !!!");
+                      });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  window.alert("Create NFT aution false !!!");
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            window.alert("Create NFT aution false !!!");
+          });
+      } else {
+        contractNginNFT.methods
+          .approve("0x5Eda6E2a4a023c9D69Da477A6425550B2794B057", tokenId)
+          .send({ from: account })
+          .then((res) => {
+            if (res) {
+              TaoPhienDauGia1(
+                contract,
+                account,
                 tokenId,
                 giaKhoiDiem,
                 giaBanLuon,
@@ -632,29 +680,70 @@ export const TaoPhienThucHienDauGia = (
                 thoiGianBatDau,
                 thoiGianKetThuc
               )
-              .send({ from: account })
-              .then((res) => {
-                if (res) {
-                  window.alert("Create NFT aution success !!!");
-                }
-              })
-              .catch((err) => {
-                console.log(err);
-                window.alert("Create NFT aution false !!!");
-              });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-          window.alert("Create NFT aution false !!!");
-        });
+                .then((res) => {
+                  if (res < 1000000) {
+                    contract.methods
+                      .TaoPhienDauGia(
+                        tokenId,
+                        giaKhoiDiem,
+                        giaBanLuon,
+                        buocGia,
+                        thoiGianBatDau,
+                        thoiGianKetThuc
+                      )
+                      .send({
+                        from: account,
+                        gas: 1000000,
+                        gasPrice: "5000000000",
+                      })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Create NFT aution success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT aution false !!!");
+                      });
+                  } else {
+                    contract.methods
+                      .TaoPhienDauGia(
+                        tokenId,
+                        giaKhoiDiem,
+                        giaBanLuon,
+                        buocGia,
+                        thoiGianBatDau,
+                        thoiGianKetThuc
+                      )
+                      .send({ from: account })
+                      .then((res) => {
+                        if (res) {
+                          window.alert("Create NFT aution success !!!");
+                        }
+                      })
+                      .catch((err) => {
+                        console.log(err);
+                        window.alert("Create NFT aution false !!!");
+                      });
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  window.alert("Create NFT aution false !!!");
+                });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+            window.alert("Create NFT aution false !!!");
+          });
+      }
     })
     .catch((err) => {
       console.log(err);
       window.alert("Create NFT aution false !!!");
     });
 };
-
 //
 export const ThucHienHuyBanHang = (contract, account, maHopDong) => {
   HuyBanHang(contract, account, maHopDong)
